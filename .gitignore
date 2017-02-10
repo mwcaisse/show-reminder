@@ -52,6 +52,7 @@ doc/
 lint.xml
 .idea/
 .vs
+obj/
 
 
 
