@@ -53,6 +53,7 @@ lint.xml
 .idea/
 .vs
 obj/
+.user
 
 
 
