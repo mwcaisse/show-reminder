@@ -38,6 +38,7 @@ Thumbs.db
 # Credential Files #
 ####################
 data-source.xml
+authentication.json
 
 # Misc stuff #
 ##############

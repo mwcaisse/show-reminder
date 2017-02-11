@@ -1,13 +1,16 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 
 namespace ShowReminder.TVDBFetcher.Manager
 {
-    public class AbstractManager
+    public abstract class AbstractManager
     {
 
         protected HttpClientHandler ClientHandler { get; set; }
@@ -18,8 +21,11 @@ namespace ShowReminder.TVDBFetcher.Manager
 
         private DateTime AuthenticationTokenRetrieved { get; set; }
 
-        public AbstractManager()
+        private readonly AuthenticationParam _authenticationParam;
+
+        protected AbstractManager(AuthenticationParam authParam)
         {
+            _authenticationParam = authParam;
             Initialize();
         }
 
@@ -47,13 +53,22 @@ namespace ShowReminder.TVDBFetcher.Manager
             return (T)JsonConvert.DeserializeObject(jsonResponse, typeof(T));
         }
 
-        protected T GetRequest<T>(string url)
+        protected T GetRequest<T>(string url, bool attemptLoginOnFail = true)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
                 using (var response = Client.SendAsync(request).Result)
                 {
-                    return ParseJsonFromResponse<T>(response);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return ParseJsonFromResponse<T>(response);
+                    }
+                    if (attemptLoginOnFail && response.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        Login();
+                        return GetRequest<T>(url, false);
+                    }
+                    throw new Exception("Failed to make request. " + response.ReasonPhrase);
                 }
             }
         }
@@ -66,7 +81,7 @@ namespace ShowReminder.TVDBFetcher.Manager
             return content;
         }
 
-        protected T PostRequest<T>(string url, Object body)
+        protected T PostRequest<T>(string url, Object body, bool attemptLoginOnFail = true)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Post, url))
             {
@@ -74,14 +89,23 @@ namespace ShowReminder.TVDBFetcher.Manager
                 request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 using (var response = Client.SendAsync(request).Result)
                 {
-                    return ParseJsonFromResponse<T>(response);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return ParseJsonFromResponse<T>(response);
+                    }
+                    if (attemptLoginOnFail && response.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        Login();
+                        return PostRequest<T>(url, body, false);
+                    }
+                    throw new Exception("Failed to make request. " + response.ReasonPhrase);
                 }
             }
         }
 
-        public string Login(AuthenticationParam param)
+        protected string Login()
         {
-            var response = PostRequest<AuthenticationResponse>(" https://api.thetvdb.com/login", param);
+            var response = PostRequest<AuthenticationResponse>(" https://api.thetvdb.com/login", _authenticationParam, false);
             SetAuthentication(response);
             return response.Token;
         }

@@ -11,10 +11,5 @@ namespace ShowReminder.TVDBFetcher.Model
 
         public string Sparta { get; set; }
 
-        public SeriesData()
-        {
-            Sparta = "Mitchell";
-        }
-
     }
 }

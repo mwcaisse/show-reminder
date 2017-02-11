@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using ShowReminder.TVDBFetcher.Manager;
 using ShowReminder.TVDBFetcher.Model;
 using ShowReminder.TVDBFetcher.Model.Authentication;
@@ -15,22 +16,22 @@ namespace ShowReminder.API.Controllers
     [Route("api/test")]
     public class TestController : Controller
     {
+
+        private readonly AuthenticationParam _authenticationParam;
+
+        private readonly SeriesManager _seriesManager;
+
+        public TestController(IOptions<AuthenticationParam> optionsAccessor)
+        {
+            _authenticationParam = optionsAccessor.Value;
+            _seriesManager = new SeriesManager(_authenticationParam);
+        }
+
         // GET: api/test
         [HttpGet]
         public SeriesData Get()
         {
-            var seriesRequester = new SeriesManager();
-
-            return seriesRequester.GetSeries(295515);
-        }
-
-        [HttpGet]
-        [Route("login")]
-        public string Login()
-        {
-            var manager = new AbstractManager();
-            var param = new AuthenticationParam();
-            return manager.Login(param);
+            return _seriesManager.GetSeries(295515);
         }
     
     }
