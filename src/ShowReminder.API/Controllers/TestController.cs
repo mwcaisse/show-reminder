@@ -44,6 +44,27 @@ namespace ShowReminder.API.Controllers
         {
             return _searchManager.SearchByName(name);
         }
-    
+
+        [HttpGet]
+        [Route("episodes/{id}")]
+        public List<BasicEpisode> Episodes(int id)
+        {
+            return _seriesManager.GetAllSeriesEpisodes(id);
+        }
+
+        [HttpGet]
+        [Route("next/{id}")]
+        public BasicEpisode NextEpisode(int id)
+        {
+            return _seriesManager.GetNextAiringEpisode(id);
+        }
+
+        [HttpGet]
+        [Route("last/{id}")]
+        public BasicEpisode Lastpisode(int id)
+        {
+            return _seriesManager.GetLastAiredEpisode(id);
+        }
+
     }
 }

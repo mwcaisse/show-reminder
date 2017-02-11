@@ -9,7 +9,7 @@ namespace ShowReminder.TVDBFetcher.Model
 
         public List<BasicEpisode> Data { get; set; }
 
-        public List<JsonError> Errors { get; set; }
+        public JsonError Errors { get; set; }
 
     }
 }

@@ -5,15 +5,15 @@ namespace ShowReminder.TVDBFetcher.Model
     public class BasicEpisode
     {
 
-        public int AbsoluteNumber { get; set; }
+        public int? AbsoluteNumber { get; set; }
 
-        public int AiredEpisodeNumber { get; set; }
+        public int? AiredEpisodeNumber { get; set; }
 
-        public int AiredSeason { get; set; }
+        public int? AiredSeason { get; set; }
 
-        public int DvdEpisodeNumber { get; set; }
+        public int? DvdEpisodeNumber { get; set; }
 
-        public int DvdSeason { get; set; }
+        public int? DvdSeason { get; set; }
 
         public string EpisodeName { get; set; }
 
@@ -21,7 +21,7 @@ namespace ShowReminder.TVDBFetcher.Model
 
         public string Overview { get; set; }
 
-        public DateTime FirstAired { get; set; }
+        public DateTime? FirstAired { get; set; }
 
         public int LastUpdated { get; set; }
 
