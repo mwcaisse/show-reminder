@@ -18,7 +18,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ShowReminder.Common", "src\
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ShowReminder.Data", "src\ShowReminder.Data\ShowReminder.Data.xproj", "{227CBF55-9973-4230-AFD5-517283227A06}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TVDBFetcher", "src\TVDBFetcher\TVDBFetcher.xproj", "{E4CBEDC4-1934-4813-8838-D144161413F9}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ShowReminder.TVDBFetcher", "src\TVDBFetcher\ShowReminder.TVDBFetcher.xproj", "{E4CBEDC4-1934-4813-8838-D144161413F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

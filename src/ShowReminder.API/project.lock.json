@@ -3536,12 +3536,6 @@
         "dependencies": {
           "NETStandard.Library": "1.6.0",
           "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "netstandard1.6/TVDBFetcher.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/TVDBFetcher.dll": {}
         }
       }
     },
@@ -7213,12 +7207,6 @@
         "dependencies": {
           "NETStandard.Library": "1.6.0",
           "Newtonsoft.Json": "9.0.1"
-        },
-        "compile": {
-          "netstandard1.6/TVDBFetcher.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/TVDBFetcher.dll": {}
         }
       }
     }
@@ -13923,8 +13911,7 @@
     },
     "TVDBFetcher/1.0.0": {
       "type": "project",
-      "path": "../TVDBFetcher/project.json",
-      "msbuildProject": "../TVDBFetcher/TVDBFetcher.xproj"
+      "path": "../TVDBFetcher/project.json"
     }
   },
   "projectFileDependencyGroups": {
