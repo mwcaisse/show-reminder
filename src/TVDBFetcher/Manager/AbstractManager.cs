@@ -13,6 +13,8 @@ namespace ShowReminder.TVDBFetcher.Manager
     public abstract class AbstractManager
     {
 
+        protected const string BaseUrl = "https://api.thetvdb.com/";
+
         protected HttpClientHandler ClientHandler { get; set; }
 
         protected HttpClient Client { get; set; }
@@ -68,6 +70,10 @@ namespace ShowReminder.TVDBFetcher.Manager
                         Login();
                         return GetRequest<T>(url, false);
                     }
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        return default(T);
+                    }
                     throw new Exception("Failed to make request. " + response.ReasonPhrase);
                 }
             }
@@ -105,7 +111,7 @@ namespace ShowReminder.TVDBFetcher.Manager
 
         protected string Login()
         {
-            var response = PostRequest<AuthenticationResponse>(" https://api.thetvdb.com/login", _authenticationParam, false);
+            var response = PostRequest<AuthenticationResponse>(BaseUrl + "login", _authenticationParam, false);
             SetAuthentication(response);
             return response.Token;
         }
