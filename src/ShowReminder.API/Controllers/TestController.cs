@@ -40,7 +40,7 @@ namespace ShowReminder.API.Controllers
 
         [HttpGet]
         [Route("search")]
-        public SearchResult Search(string name = "Quantico")
+        public SearchResult Search(string name)
         {
             return _searchManager.SearchByName(name);
         }
