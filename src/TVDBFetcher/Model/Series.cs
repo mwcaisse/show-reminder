@@ -14,11 +14,11 @@ namespace ShowReminder.TVDBFetcher.Model
 
         public string Banner { get; set; }
 
-        public int SeriesId { get; set; }
+        public int? SeriesId { get; set; }
 
         public string Status { get; set; }
 
-        public DateTime FirstAired { get; set; }
+        public DateTime? FirstAired { get; set; }
 
         public string Network { get; set; }
 
