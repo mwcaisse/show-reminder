@@ -42,7 +42,7 @@ namespace ShowReminder.TVDBFetcher.Model.Series
 
         public string Zap2ItId { get; set; }
 
-        public DateTime Added { get; set; }
+        public DateTime? Added { get; set; }
 
         public string SiteRating { get; set; }
 

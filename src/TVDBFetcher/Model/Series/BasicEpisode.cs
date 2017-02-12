@@ -11,9 +11,9 @@ namespace ShowReminder.TVDBFetcher.Model.Series
 
         public int? AiredSeason { get; set; }
 
-        public int? DvdEpisodeNumber { get; set; }
+        public string DvdEpisodeNumber { get; set; }
 
-        public int? DvdSeason { get; set; }
+        public string DvdSeason { get; set; }
 
         public string EpisodeName { get; set; }
 

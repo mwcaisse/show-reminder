@@ -46,6 +46,17 @@ namespace ShowReminder.API.Controllers
         }
 
         [HttpGet]
+        [Route("{id}/episodes")]
+        public JsonResponse<IEnumerable<Episode>> GetEpisodes(int id)
+        {
+            return new JsonResponse<IEnumerable<Episode>>()
+            {
+                Data = _showManager.GetAllEpisodesForShow(id),
+                ErrorMessage = null
+            };
+        }
+
+        [HttpGet]
         [Route("{id}/nextlast")]
         public JsonResponse<ShowNextLast> GetWithNextLast(int id)
         {

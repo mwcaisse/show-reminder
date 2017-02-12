@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting.Internal;
 using ShowReminder.API.Mapper;
 using ShowReminder.API.Models;
 using ShowReminder.TVDBFetcher.Manager;
@@ -32,7 +33,7 @@ namespace ShowReminder.API.Manager
         public IEnumerable<Show> Search(string terms)
         {
             var results = _searchManager.SearchByName(terms);
-            return results.Data.ToModel();
+            return null == results ? new List<Show>() : results.Data.ToModel();
         }
 
         /// <summary>
@@ -44,6 +45,17 @@ namespace ShowReminder.API.Manager
         {
             var result = _seriesManager.GetSeries(id);
             return result?.ToModel();
+        }
+
+        /// <summary>
+        /// Gets all episodes for a given show
+        /// </summary>
+        /// <param name="showId"></param>
+        /// <returns></returns>
+        public IEnumerable<Episode> GetAllEpisodesForShow(int showId)
+        {
+            var results = _seriesManager.GetAllSeriesEpisodes(showId)?.ToModel();
+            return results ?? new List<Episode>();
         }
 
         /// <summary>
