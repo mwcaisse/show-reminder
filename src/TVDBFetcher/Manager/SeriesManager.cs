@@ -17,10 +17,11 @@ namespace ShowReminder.TVDBFetcher.Manager
 
      
 
-        public SeriesData GetSeries(int id)
+        public Series GetSeries(int id)
         {
             var url = BaseUrl + $"series/{id}";
-            return GetRequest<SeriesData>(url);
+            var res = GetRequest<SeriesData>(url);
+            return res?.Data;
         }
 
         public SeriesEpisodes GetSeriesEpisodes(int id, string page = "")

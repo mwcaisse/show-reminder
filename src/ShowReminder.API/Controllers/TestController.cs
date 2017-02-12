@@ -30,41 +30,6 @@ namespace ShowReminder.API.Controllers
             _seriesManager = new SeriesManager(_authenticationParam);
             _searchManager = new SearchManager(_authenticationParam);
         }
-
-        // GET: api/test
-        [HttpGet]
-        public SeriesData Get()
-        {
-            return _seriesManager.GetSeries(295515);
-        }
-
-        [HttpGet]
-        [Route("search")]
-        public SearchResult Search(string name)
-        {
-            return _searchManager.SearchByName(name);
-        }
-
-        [HttpGet]
-        [Route("episodes/{id}")]
-        public List<BasicEpisode> Episodes(int id)
-        {
-            return _seriesManager.GetAllSeriesEpisodes(id);
-        }
-
-        [HttpGet]
-        [Route("next/{id}")]
-        public BasicEpisode NextEpisode(int id)
-        {
-            return _seriesManager.GetNextAiringEpisode(id);
-        }
-
-        [HttpGet]
-        [Route("last/{id}")]
-        public BasicEpisode Lastpisode(int id)
-        {
-            return _seriesManager.GetLastAiredEpisode(id);
-        }
-
+       
     }
 }

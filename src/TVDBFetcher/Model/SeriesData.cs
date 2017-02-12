@@ -8,8 +8,6 @@ namespace ShowReminder.TVDBFetcher.Model
         public Series Data { get; set; }
 
         public List<JsonError> Errors { get; set; }
-
-        public string Sparta { get; set; }
-
+        
     }
 }

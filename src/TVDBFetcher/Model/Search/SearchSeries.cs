@@ -12,7 +12,7 @@ namespace ShowReminder.TVDBFetcher.Model.Search
 
         public string Banner { get; set; }
 
-        public string FirstAired { get; set; }
+        public DateTime? FirstAired { get; set; }
 
         public int Id { get; set; }
 
