@@ -46,7 +46,7 @@ namespace ShowReminder.API.Controllers
         }
 
         [HttpGet]
-        [Route("nextlast/{id}")]
+        [Route("{id}/nextlast")]
         public JsonResponse<ShowNextLast> GetWithNextLast(int id)
         {
             return new JsonResponse<ShowNextLast>()
