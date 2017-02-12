@@ -1,4 +1,4 @@
-﻿namespace ShowReminder.TVDBFetcher.Model
+namespace ShowReminder.TVDBFetcher.Model.Series
 {
     public class Links
     {
