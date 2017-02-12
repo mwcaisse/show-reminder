@@ -6,6 +6,7 @@ using ShowReminder.TVDBFetcher.Model;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 using System.Collections.Generic;
 using System.Linq;
+using ShowReminder.TVDBFetcher.Model.Series;
 
 namespace ShowReminder.TVDBFetcher.Manager
 {

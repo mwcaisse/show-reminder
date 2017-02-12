@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ShowReminder.TVDBFetcher.Model;
 using ShowReminder.API.Models;
 using ShowReminder.TVDBFetcher.Model.Search;
+using ShowReminder.TVDBFetcher.Model.Series;
 
 namespace ShowReminder.API.Mapper
 {
