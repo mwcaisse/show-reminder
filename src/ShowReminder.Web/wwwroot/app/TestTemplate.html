@@ -1,0 +1,11 @@
+﻿<h2>The Shows</h2>
+
+<ul class="shows">
+    <li *ngFor="let show of shows" 
+        [class.selected]="show === selectedShow"
+        (click)="onSelect(show)">
+        <span>{{show.name}}</span>
+    </li>
+</ul>
+
+<show-detail [show]="selectedShow"></show-detail>

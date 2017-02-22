@@ -1,0 +1,8 @@
+﻿<div *ngIf="show">
+    <h3>{{show.name}} details!</h3>
+    <div><label>id: </label>{{show.id}}</div>
+    <div>
+        <label>name: </label>
+        <input type="text" class="form-control" [(ngModel)]="show.name" placeholder="name"/>
+    </div>
+</div>
