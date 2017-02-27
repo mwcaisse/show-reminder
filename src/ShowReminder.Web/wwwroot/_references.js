@@ -4,6 +4,7 @@
 /// <reference path="app/app.component.spec.js" />
 /// <reference path="app/app.module.js" />
 /// <reference path="app/main.js" />
+/// <reference path="app/mock-shows.js" />
 /// <reference path="app/show.js" />
 /// <reference path="app/show-detail.component.js" />
 /// <reference path="js/site.js" />

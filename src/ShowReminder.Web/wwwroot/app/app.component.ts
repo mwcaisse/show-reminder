@@ -1,27 +1,33 @@
 import { Component } from '@angular/core';
+import { OnInit } from "@angular/core";
+
 import { Show } from "./show";
-
-
-const SHOWS: Show[] = [
-    {id: 1, name: "Brooklyn Nine Nine"},
-    {id: 2, name: "Designated Survivor"},
-    {id: 3, name: "Agents of Shield"},
-    {id: 4, name: "Hawaii Five O"},
-    {id: 5, name: "Lucifer"},
-    {id: 6, name: "Quantico"}
-];
+import { ShowService } from "./show.service";
 
 @Component({
     selector: 'my-app',
     templateUrl: "app/TestTemplate.html",
-    styleUrls: ["app/TestStyles.css"]
+    styleUrls: ["app/TestStyles.css"],
+    providers: [ShowService]
 })
-export class AppComponent {
-    shows = SHOWS;
+export class AppComponent implements OnInit {
+
+    constructor(private showService: ShowService) {}
+
+    shows: Show[];
 
     selectedShow: Show;
 
     onSelect(show: Show): void {
         this.selectedShow = show;
     };
+
+    getShows(): void {
+        this.showService.getShows().then(shows => this.shows = shows);
+    };
+
+    ngOnInit(): void {
+        this.getShows();
+    }
+
 }
