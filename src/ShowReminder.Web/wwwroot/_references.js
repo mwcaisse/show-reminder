@@ -6,6 +6,7 @@
 /// <reference path="app/main.js" />
 /// <reference path="app/mock-shows.js" />
 /// <reference path="app/show.js" />
+/// <reference path="app/show.service.js" />
 /// <reference path="app/show-detail.component.js" />
 /// <reference path="js/site.js" />
 /// <reference path="systemjs.config.js" />

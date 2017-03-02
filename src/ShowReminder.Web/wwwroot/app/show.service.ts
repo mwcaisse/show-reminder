@@ -16,7 +16,7 @@ export class ShowService {
         //we have the Shows in an array, so instantly resolve the promise
         //return Promise.resolve(SHOWS);
 
-        return this.http.get("lets/put/url/here")
+        return this.http.get("http://localhost:50699/api/show/search?terms=hawaii")
             .toPromise()
             .then(this.extractData);
     };
