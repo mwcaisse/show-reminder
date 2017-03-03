@@ -5,7 +5,6 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/topromise';
 
 import { Show } from "./show";
-import { SHOWS } from "./mock-shows";
 
 @Injectable()
 export class ShowService {

@@ -1,8 +1,10 @@
 ﻿<div *ngIf="show">
     <h3>{{show.name}} details!</h3>
-    <div><label>id: </label>{{show.id}}</div>
-    <div>
-        <label>name: </label>
-        <input type="text" class="form-control" [(ngModel)]="show.name" placeholder="name"/>
-    </div>
+    <div><label>Id: </label>{{show.id}}</div>
+    <div><label>Name: </label>{{show.name}}</div>
+    <div><label>Overview: </label>{{show.overview}}</div>
+    <div><label>Status: </label>{{show.status}}</div>
+    <div><label>Airs Day Of Week: </label>{{show.airsDayOfWeek}}</div>
+    <div><label>Airs Time: </label>{{show.airsTime}}</div>
+    <div><label>First Aired: </label>{{show.firstAired}}</div>
 </div>
