@@ -33,11 +33,12 @@ namespace ShowReminder.API
 
             services.Configure<AuthenticationParam>(Configuration.GetSection("authenticationParam"));
 
-            // Add framework services.
-            services.AddMvc();
-
             //Add CORS
             services.AddCors();
+
+            // Add framework services.
+            services.AddMvc();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,13 +47,13 @@ namespace ShowReminder.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
-
             app.UseCors(builder =>
                 builder.AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod()
             );
+
+            app.UseMvc();
         }
     }
 }
