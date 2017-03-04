@@ -12,7 +12,7 @@
         <button type="button" class="btn btn-primary" (click)="searchShows()">Search</button>
     </div>
 
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -22,14 +22,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let show of shows"
-            (click)="onSelect(show)">
+            <tr *ngFor="let show of shows"
+                (click)="onSelect(show)"
+                [class.table-active]="show === selectedShow">
 
-            <td>{{show.id}}</td>
-            <td>{{show.name}}</td>
-            <td>{{show.status}}</td>
-            <td>{{show.firstAired}}</td>
-        </tr>
+                <td>{{show.id}}</td>
+                <td>{{show.name}}</td>
+                <td>{{show.status}}</td>
+                <td>{{show.firstAired}}</td>
+            </tr>
         </tbody>
     </table>
 </div>
