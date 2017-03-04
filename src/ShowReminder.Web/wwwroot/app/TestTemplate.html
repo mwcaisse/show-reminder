@@ -1,11 +1,40 @@
-﻿<h2>The Shows</h2>
+﻿<div class="container">
+    <h2>The Shows</h2>
+    <div class="float-right">
+        <a href="#" style="vertical-align: bottom">Add Show</a>
+    </div>
 
-<ul class="shows">
-    <li *ngFor="let show of shows" 
-        [class.selected]="show === selectedShow"
-        (click)="onSelect(show)">
-        <span>{{show.name}}</span>
-    </li>
-</ul>
+    <div class="form-group row">
+        <div class="col-10">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Search for Show" 
+                   [(ngModel)]="searchTerms"/>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="searchShows()">Search</button>
+    </div>
 
-<show-detail [show]="selectedShow"></show-detail>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>First Aired</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let show of shows"
+            (click)="onSelect(show)">
+
+            <td>{{show.id}}</td>
+            <td>{{show.name}}</td>
+            <td>{{show.status}}</td>
+            <td>{{show.firstAired}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    
+
+<div class="container">
+    <show-detail [show]="selectedShow"></show-detail>
+</div>

@@ -16,18 +16,21 @@ export class AppComponent implements OnInit {
 
     shows: Show[];
 
+    searchTerms: string;
+
     selectedShow: Show;
 
     onSelect(show: Show): void {
         this.selectedShow = show;
     };
 
-    getShows(): void {
-        this.showService.getShows().then(shows => this.shows = shows);
-    };
+    searchShows(): void {
+        this.showService.searchShows(this.searchTerms).then(shows => this.shows = shows);
+    }
+   
 
     ngOnInit(): void {
-        this.getShows();
+       
     }
 
 }
