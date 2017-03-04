@@ -19,10 +19,6 @@ namespace ShowReminder.TVDBFetcher.Manager
 
         protected HttpClient Client { get; set; }
 
-        private string AuthenticationToken { get; set; }
-
-        private DateTime AuthenticationTokenRetrieved { get; set; }
-
         private readonly AuthenticationParam _authenticationParam;
 
         protected AbstractManager(AuthenticationParam authParam)
@@ -44,8 +40,12 @@ namespace ShowReminder.TVDBFetcher.Manager
 
         protected void SetAuthentication(string token)
         {
-            AuthenticationToken = token;
-            AuthenticationTokenRetrieved = DateTime.Now;
+            AuthenticationStore.AuthenticationToken = token;
+            SetAuthenticationTokenHeader(token);
+        }
+
+        protected void SetAuthenticationTokenHeader(string token)
+        {
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
@@ -67,7 +67,7 @@ namespace ShowReminder.TVDBFetcher.Manager
                     }
                     if (attemptLoginOnFail && response.StatusCode == HttpStatusCode.Unauthorized)
                     {
-                        Login();
+                        LoginOrSetToken();
                         return GetRequest<T>(url, false);
                     }
                     if (response.StatusCode == HttpStatusCode.NotFound)
@@ -106,6 +106,18 @@ namespace ShowReminder.TVDBFetcher.Manager
                     }
                     throw new Exception("Failed to make request. " + response.ReasonPhrase);
                 }
+            }
+        }
+
+        protected void LoginOrSetToken()
+        {
+            if (AuthenticationStore.HasAuthenticationToken)
+            {
+                SetAuthenticationTokenHeader(AuthenticationStore.AuthenticationToken);
+            }
+            else
+            {
+                Login();
             }
         }
 
