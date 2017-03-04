@@ -33,6 +33,14 @@ namespace ShowReminder.TVDBFetcher.Manager
             Client = new HttpClient(ClientHandler);
         }
 
+        protected void CheckForAuthenticationToken()
+        {
+            if (!AuthenticationStore.HasValidAuthenticationToken)
+            {
+                Login();
+            }
+        }
+
         protected void SetAuthentication(AuthenticationResponse authenticationResponse)
         {
             SetAuthentication(authenticationResponse.Token);
@@ -57,6 +65,11 @@ namespace ShowReminder.TVDBFetcher.Manager
 
         protected T GetRequest<T>(string url, bool attemptLoginOnFail = true)
         {
+            if (attemptLoginOnFail)
+            {
+                CheckForAuthenticationToken();
+            }
+
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
                 using (var response = Client.SendAsync(request).Result)
@@ -89,6 +102,11 @@ namespace ShowReminder.TVDBFetcher.Manager
 
         protected T PostRequest<T>(string url, Object body, bool attemptLoginOnFail = true)
         {
+            if (attemptLoginOnFail)
+            {
+                CheckForAuthenticationToken();
+            }
+
             using (var request = new HttpRequestMessage(HttpMethod.Post, url))
             {
                 request.Content = CreateRequestBody(body);
@@ -111,7 +129,9 @@ namespace ShowReminder.TVDBFetcher.Manager
 
         protected void LoginOrSetToken()
         {
-            if (AuthenticationStore.HasAuthenticationToken)
+            //TODO: Need to add a way to check if the token in the AuthenticationStore has failed for
+            //  a reason other than time
+            if (AuthenticationStore.HasValidAuthenticationToken)
             {
                 SetAuthenticationTokenHeader(AuthenticationStore.AuthenticationToken);
             }

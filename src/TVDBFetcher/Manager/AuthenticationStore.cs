@@ -21,6 +21,13 @@ namespace ShowReminder.TVDBFetcher.Manager
 
         private static DateTime AuthenticationTokenRetrieved { get; set; }
 
-        public static bool HasAuthenticationToken => !string.IsNullOrWhiteSpace(_authenticationToken);
+        // TimeSpan of 23 hours
+        private static readonly TimeSpan AuthenticationTokenValidSpan = new TimeSpan(23, 0, 0);
+
+        //Authentication token is valid if we have an authentication token, and it is less
+        //than AuthenticationTokenValidSpan old 
+        public static bool HasValidAuthenticationToken => 
+            !string.IsNullOrWhiteSpace(_authenticationToken) &&
+            (DateTime.Now - AuthenticationTokenRetrieved) <= AuthenticationTokenValidSpan;
     }
 }
