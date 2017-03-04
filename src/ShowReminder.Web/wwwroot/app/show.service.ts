@@ -17,9 +17,15 @@ export class ShowService {
             .then(this.extractData);
     };
 
+    getShow(id: number): Promise<Show> {
+        return this.http.get("http://localhost:50699/api/show/" + id)
+            .toPromise()
+            .then(this.extractData);
+    };
+
     private extractData(res: Response) {
         let body = res.json();
         return body.data || {};
-    }
+    };
 
 }

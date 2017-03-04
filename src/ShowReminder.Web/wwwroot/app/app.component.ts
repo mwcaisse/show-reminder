@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 import { Show } from "./show";
 import { ShowService } from "./show.service";
