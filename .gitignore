@@ -61,7 +61,7 @@ src/ShowReminder.Web/wwwroot/lib
 src/ShowReminder.Web/wwwroot/main.js
 src/ShowReminder.Web/wwwroot/main.js.map
 
-*.json.lock
+*.lock.json
 
 
 
