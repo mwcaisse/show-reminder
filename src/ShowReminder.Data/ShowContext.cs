@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 using ShowReminder.Data.Entity;
 
 namespace ShowReminder.Data
 {
     public class ShowContext : DbContext
     {
-        private DbSet<Show> Shows { get; set; }
+        public DbSet<Show> Shows { get; set; }
+
+        public ShowContext(DbContextOptions<ShowContext> options) : base(options)
+        {
+            
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
