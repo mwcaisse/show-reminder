@@ -11,15 +11,19 @@ namespace ShowReminder.Data.Entity
 
         public string Name { get; set; }
 
-        public DateTime FirstAiredDate { get; set; }
+        public DateTime? FirstAiredDate { get; set; }
 
         public string AirDay { get; set; }
 
         public string AirTime { get; set; }
 
-        public DateTime LastEpisodeDate { get; set; }
+        public long? LastEpisodeId { get; set; }
 
-        public DateTime NextEpisodeDate { get; set; }
+        public long? NextEpisodeId { get; set; }
+
+        public Episode LastEpisode { get; set; }
+
+        public Episode NextEpisode { get; set; }
 
     }
 }

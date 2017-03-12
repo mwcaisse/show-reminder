@@ -13,12 +13,5 @@ namespace ShowReminder.Data.Entity
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
 
-        public BaseEntity()
-        {
-            CreateDate = DateTime.Now;
-            UpdateDate = DateTime.Now;
-        }
-
-
     }
 }

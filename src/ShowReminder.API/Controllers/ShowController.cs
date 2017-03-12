@@ -82,5 +82,57 @@ namespace ShowReminder.API.Controllers
             };
         }
 
+        [HttpGet]
+        [Route("test/add/{showId}")]
+        public JsonResponse<Data.Entity.Show> TestAddShow(int showId)
+        {
+            var show = _showManager.GetShowWithNextLast(showId);
+
+            var showEntity = new Data.Entity.Show()
+            {
+                TvdbId = show.Id,
+                Name = show.Name,
+                FirstAiredDate = show.FirstAired,
+                AirDay = show.AirsDayOfWeek,
+                AirTime = show.AirsTime
+            };
+
+            if (null != show.LastEpisode)
+            {
+                showEntity.LastEpisode = new Data.Entity.Episode()
+                {
+                    OverallNumber = show.LastEpisode.OverallNumber,
+                    AirDate = show.LastEpisode.AirDate,
+                    Name = show.LastEpisode.Name,
+                    EpisodeNumber = show.LastEpisode.EpisodeNumber,
+                    SeasonNumber = show.LastEpisode.SeasonNumber,
+                    Overview = show.LastEpisode.Overview
+                };
+            }
+
+            if (null != show.NextEpisode)
+            {
+                showEntity.NextEpisode = new Data.Entity.Episode()
+                {
+                    OverallNumber = show.NextEpisode.OverallNumber,
+                    AirDate = show.NextEpisode.AirDate,
+                    Name = show.NextEpisode.Name,
+                    EpisodeNumber = show.NextEpisode.EpisodeNumber,
+                    SeasonNumber = show.NextEpisode.SeasonNumber,
+                    Overview = show.NextEpisode.Overview
+                };
+            }
+
+            _showContext.Shows.Add(showEntity);
+            _showContext.SaveChanges();
+
+            return new JsonResponse<Data.Entity.Show>()
+            {
+                Data = showEntity,
+                ErrorMessage = null
+            };
+
+        }
+
     }
 }

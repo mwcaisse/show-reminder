@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using ShowReminder.Data.Entity;
 
 namespace ShowReminder.Data
@@ -15,6 +16,7 @@ namespace ShowReminder.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureShow(modelBuilder);
+            ConfigureEpisode(modelBuilder);
         }
 
         protected void ConfigureBasePropertiesForEntity<T>(ModelBuilder modelBuilder) where T : BaseEntity
@@ -72,12 +74,56 @@ namespace ShowReminder.Data
                 .HasMaxLength(50);
 
             modelBuilder.Entity<Show>()
-                .Property(s => s.LastEpisodeDate)
-                .HasColumnName("LAST_EPISODE_DATE");
+                .Property(s => s.LastEpisodeId)
+                .HasColumnName("LAST_EPISODE_ID");
 
             modelBuilder.Entity<Show>()
-               .Property(s => s.NextEpisodeDate)
-               .HasColumnName("NEXT_EPISODE_DATE");
+               .Property(s => s.NextEpisodeId)
+               .HasColumnName("NEXT_EPISODE_ID");
+
+            modelBuilder.Entity<Show>()
+                .HasOne(s => s.LastEpisode)
+                .WithOne();
+
+            modelBuilder.Entity<Show>()
+                .HasOne(s => s.NextEpisode)
+                .WithOne();
+        }
+
+        protected void ConfigureEpisode(ModelBuilder modelBuilder)
+        {
+            ConfigureBasePropertiesForEntity<Episode>(modelBuilder);
+
+            modelBuilder.Entity<Episode>()
+                .ToTable("EPISODE")
+                .HasKey(e => e.Id);
+
+            modelBuilder.Entity<Episode>()
+                .Property(e => e.OverallNumber)
+                .HasColumnName("OVERALL_NUMBER");
+
+            modelBuilder.Entity<Episode>()
+                .Property(e => e.SeasonNumber)
+                .HasColumnName("SEASON_NUMBER");
+
+            modelBuilder.Entity<Episode>()
+                .Property(e => e.EpisodeNumber)
+                .HasColumnName("EPISODE_NUMBER");
+
+            modelBuilder.Entity<Episode>()
+                .Property(e => e.AirDate)
+                .HasColumnName("AIR_DATE");
+
+            modelBuilder.Entity<Episode>()
+                .Property(e => e.Name)
+                .HasColumnName("NAME")
+                .HasMaxLength(250)
+                .IsRequired();
+
+            modelBuilder.Entity<Episode>()
+                .Property(e => e.Overview)
+                .HasColumnName("OVERVIEW")
+                .HasMaxLength(4000);
         }
     }
 }
