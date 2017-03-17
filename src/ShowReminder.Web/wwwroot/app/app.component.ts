@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
     searchShows(): void {
         this.showService.searchShows(this.searchTerms).then(shows => this.shows = shows);
     }
-   
 
     ngOnInit(): void {
        
@@ -37,5 +36,9 @@ export class AppComponent implements OnInit {
     toggleCollapsed(): void {
         this.collapsed = !this.collapsed;
     }
+
+    addShow(show: Show): void {
+        this.showService.addShow(show.id).then(savedShow => console.log(savedShow));
+    };
 
 }

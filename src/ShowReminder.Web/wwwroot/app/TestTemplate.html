@@ -31,9 +31,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let show of shows"
-                        (click)="onSelect(show)"
                         [class.table-active]="show === selectedShow">
-                        <td><i class="fa fa-check" aria-hidden="true"></i></td>
+                        <td (click)="addShow(show)">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </td>
                         <td>{{show.name}}</td>
                         <td>{{show.status}}</td>
                         <td>{{show.firstAired}}</td>

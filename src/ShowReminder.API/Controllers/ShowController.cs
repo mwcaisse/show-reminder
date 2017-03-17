@@ -82,7 +82,7 @@ namespace ShowReminder.API.Controllers
             };
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("test/add/{showId}")]
         public JsonResponse<Data.Entity.Show> TestAddShow(int showId)
         {
