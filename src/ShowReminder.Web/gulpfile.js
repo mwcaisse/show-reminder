@@ -58,6 +58,16 @@ gulp.task('restore:bootstrap', function () {
     ]).pipe(gulp.dest(libs + 'bootstrap'));
 });
 
+gulp.task('restore:font-awesome', function() {
+    gulp.src([
+        'node_modules/font-awesome/css/*.*'
+    ]).pipe(gulp.dest(libs + 'font-awesome/css'));
+
+    gulp.src([
+        'node_modules/font-awesome/fonts/*.*'
+    ]).pipe(gulp.dest(libs + 'font-awesome/fonts'));
+});
+
 gulp.task('restore', [
     'restore:core-js',
     'restore:zone.js',
@@ -66,5 +76,6 @@ gulp.task('restore', [
     'restore:rxjs',
     'restore:angular-in-memory-web-api',
     'restore:angular',
-    'restore:bootstrap'
+    'restore:bootstrap',
+    'restore:font-awesome'
 ]);
