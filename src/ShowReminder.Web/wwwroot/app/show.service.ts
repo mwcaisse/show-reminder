@@ -30,6 +30,12 @@ export class ShowService {
             .then(this.extractData);
     };
 
+    getAll(): Promise<SavedShow[]> {
+        return this.http.get("http://localhost:50699/api/show/")
+            .toPromise()
+            .then(this.extractData);
+    };
+
     private extractData(res: Response) {
         let body = res.json();
         return body.data || {};

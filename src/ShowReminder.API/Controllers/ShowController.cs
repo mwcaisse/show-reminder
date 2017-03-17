@@ -71,8 +71,8 @@ namespace ShowReminder.API.Controllers
         }
 
         [HttpGet]
-        [Route("test")]
-        public JsonResponse<List<Data.Entity.Show>> TestDatabase()
+        [Route("")]
+        public JsonResponse<List<Data.Entity.Show>> GetAllShows()
         {
             var shows = _showContext.Shows.ToList();
             return new JsonResponse<List<Data.Entity.Show>>()

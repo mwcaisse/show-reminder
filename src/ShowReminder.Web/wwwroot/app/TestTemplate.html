@@ -22,22 +22,50 @@
 
             <table class="table table-bordered table-hover">
                 <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>First Aired</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let show of shows"
+                    [class.table-active]="show === selectedShow">
+                    <td (click)="addShow(show)">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </td>
+                    <td>{{show.name}}</td>
+                    <td>{{show.status}}</td>
+                    <td>{{show.firstAired}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            My Shows
+        </div>
+        <div class="card-block">
+            <table class="table table-bordered table-hover">
+                <thead>
                     <tr>
-                        <th></th>
                         <th>Name</th>
-                        <th>Status</th>
                         <th>First Aired</th>
+                        <th>Airs On</th>
+                        <th>Last Aired</th>
+                        <th>Next Airs</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let show of shows"
-                        [class.table-active]="show === selectedShow">
-                        <td (click)="addShow(show)">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                        </td>
+                    <tr *ngFor="let show of savedShows">
                         <td>{{show.name}}</td>
-                        <td>{{show.status}}</td>
-                        <td>{{show.firstAired}}</td>
+                        <td>{{show.firstAiredDate}}</td>
+                        <td>{{show.airDay}} at {{show.airTime}}</td>
+                        <td>{{show.lastEpisode === null ? "N/A" : show.lastEpisode.airDate}}</td>
+                        <td>{{show.nextEpisode === null ? "N/A" : show.nextEpisode.airDate}}</td>
                     </tr>
                 </tbody>
             </table>
