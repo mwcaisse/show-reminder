@@ -4,8 +4,13 @@
     <div class="card">
         <div class="card-header">
             Add Show(s)
+            <i class="pull-right fa"
+               [class.fa-chevron-up]="collapsed === false"
+               [class.fa-chevron-down]="collapsed === true"
+               (click)="toggleCollapsed()"></i>
         </div>
-        <div class="card-block" style="max-height: 300px; overflow-y: auto">
+        <div class="card-block" style="max-height: 300px; overflow-y: auto"
+             [class.hidden]="collapsed === true">
 
             <div class="form-group row">
                 <div class="col-10">
@@ -28,7 +33,7 @@
                     <tr *ngFor="let show of shows"
                         (click)="onSelect(show)"
                         [class.table-active]="show === selectedShow">
-                        <td>Add</td>
+                        <td><i class="fa fa-check" aria-hidden="true"></i></td>
                         <td>{{show.name}}</td>
                         <td>{{show.status}}</td>
                         <td>{{show.firstAired}}</td>
@@ -37,9 +42,4 @@
             </table>
         </div>
     </div>
-</div>
-    
-
-<div class="container">
-    <show-detail [id]="selectedShow ? selectedShow.id : -1"></show-detail>
 </div>

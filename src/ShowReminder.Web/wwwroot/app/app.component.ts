@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
 
     selectedShow: Show;
 
+    collapsed = false;
+
     onSelect(show: Show): void {
         this.selectedShow = show;
     };
@@ -30,6 +32,10 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
        
+    }
+
+    toggleCollapsed(): void {
+        this.collapsed = !this.collapsed;
     }
 
 }
