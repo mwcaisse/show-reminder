@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using ShowReminder.API.Manager;
 using ShowReminder.API.Models;
@@ -74,7 +75,11 @@ namespace ShowReminder.API.Controllers
         [Route("")]
         public JsonResponse<List<Data.Entity.Show>> GetAllShows()
         {
-            var shows = _showContext.Shows.ToList();
+            var shows = _showContext.Shows
+                .Include(x => x.LastEpisode)
+                .Include(x => x.NextEpisode)
+                .ToList();
+
             return new JsonResponse<List<Data.Entity.Show>>()
             {
                 Data = shows,
