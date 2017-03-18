@@ -4,10 +4,11 @@
     <div class="card">
         <div class="card-header">
             Add Show(s)
-            <i class="pull-right fa"
-               [class.fa-chevron-up]="collapsed === false"
-               [class.fa-chevron-down]="collapsed === true"
-               (click)="toggleCollapsed()"></i>
+            <a href="#" (click)="toggleCollapsed()">
+                <i class="pull-right fa"
+                   [class.fa-chevron-up]="collapsed === false"
+                   [class.fa-chevron-down]="collapsed === true"></i>
+            </a>
         </div>
         <div class="card-block" style="max-height: 300px; overflow-y: auto"
              [class.hidden]="collapsed === true">
@@ -44,9 +45,12 @@
         </div>
     </div>
     
-    <div class="card" style="padding-top: 15px;">
+    <div class="card" style="margin-top: 15px;">
         <div class="card-header">
             My Shows
+            <a href="#" (click)="refresh()">
+                <i class="pull-right fa fa-refresh"></i>
+            </a>
         </div>
         <div class="card-block">
             <table class="table table-bordered table-hover">
