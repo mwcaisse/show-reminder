@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Show } from "./show";
-import { SavedShow } from "./saved-show";
+import { TrackedShow } from "./tracked-show";
 import { ShowService } from "./show.service";
 
 @Component({
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
     shows: Show[];
 
-    savedShows: SavedShow[] = [];
+    trackedShows: TrackedShow[] = [];
 
     searchTerms: string;
 
@@ -41,11 +41,11 @@ export class AppComponent implements OnInit {
     }
 
     addShow(show: Show): void {
-        this.showService.addShow(show.id).then(savedShow => this.savedShows.push(savedShow));
+        this.showService.addShow(show.id).then(savedShow => this.trackedShows.push(savedShow));
     }
 
     getAllShows(): void {
-        this.showService.getAll().then(savedShows => this.savedShows = savedShows);
+        this.showService.getAll().then(savedShows => this.trackedShows = savedShows);
     }
 
     refresh(): void {

@@ -64,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let show of savedShows">
+                    <tr *ngFor="let show of trackedShows">
                         <td>{{show.name}}</td>
                         <td>{{show.firstAiredDate | date: "MM/dd/yyyy"}}</td>
                         <td>{{show.airDay}} at {{show.airTime}}</td>

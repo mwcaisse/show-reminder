@@ -4,19 +4,19 @@ using ShowReminder.Data.Entity;
 
 namespace ShowReminder.Data
 {
-    public class ShowContext : DbContext
+    public class DataContext : DbContext
     {
-        public DbSet<Show> Shows { get; set; }
+        public DbSet<TrackedShow> Shows { get; set; }
 
-        public ShowContext(DbContextOptions<ShowContext> options) : base(options)
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
             
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ConfigureShow(modelBuilder);
-            ConfigureEpisode(modelBuilder);
+            ConfigureTrackedShow(modelBuilder);
+            ConfigureTrackedEpisode(modelBuilder);
         }
 
         protected void ConfigureBasePropertiesForEntity<T>(ModelBuilder modelBuilder) where T : BaseEntity
@@ -39,88 +39,88 @@ namespace ShowReminder.Data
                .ValueGeneratedOnAddOrUpdate();
         }
 
-        protected void ConfigureShow(ModelBuilder modelBuilder)
+        protected void ConfigureTrackedShow(ModelBuilder modelBuilder)
         {
-            ConfigureBasePropertiesForEntity<Show>(modelBuilder);
+            ConfigureBasePropertiesForEntity<TrackedShow>(modelBuilder);
 
             //add the info for creating show
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .ToTable("SHOW")
                 .HasKey(s => s.Id);
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .Property(s => s.TvdbId)
                 .HasColumnName("TVDB_ID")
                 .IsRequired();
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .Property(s => s.Name)
                 .HasColumnName("NAME")
                 .IsRequired()
                 .HasMaxLength(250);
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .Property(s => s.FirstAiredDate)
                 .HasColumnName("FIRST_AIRED_DATE");
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .Property(s => s.AirDay)
                 .HasColumnName("AIR_DAY")
                 .HasMaxLength(50);
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .Property(s => s.AirTime)
                 .HasColumnName("AIR_TIME")
                 .HasMaxLength(50);
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .Property(s => s.LastEpisodeId)
                 .HasColumnName("LAST_EPISODE_ID");
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                .Property(s => s.NextEpisodeId)
                .HasColumnName("NEXT_EPISODE_ID");
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .HasOne(s => s.LastEpisode)
                 .WithOne();
 
-            modelBuilder.Entity<Show>()
+            modelBuilder.Entity<TrackedShow>()
                 .HasOne(s => s.NextEpisode)
                 .WithOne();
         }
 
-        protected void ConfigureEpisode(ModelBuilder modelBuilder)
+        protected void ConfigureTrackedEpisode(ModelBuilder modelBuilder)
         {
-            ConfigureBasePropertiesForEntity<Episode>(modelBuilder);
+            ConfigureBasePropertiesForEntity<TrackedEpisode>(modelBuilder);
 
-            modelBuilder.Entity<Episode>()
+            modelBuilder.Entity<TrackedEpisode>()
                 .ToTable("EPISODE")
                 .HasKey(e => e.Id);
 
-            modelBuilder.Entity<Episode>()
+            modelBuilder.Entity<TrackedEpisode>()
                 .Property(e => e.OverallNumber)
                 .HasColumnName("OVERALL_NUMBER");
 
-            modelBuilder.Entity<Episode>()
+            modelBuilder.Entity<TrackedEpisode>()
                 .Property(e => e.SeasonNumber)
                 .HasColumnName("SEASON_NUMBER");
 
-            modelBuilder.Entity<Episode>()
+            modelBuilder.Entity<TrackedEpisode>()
                 .Property(e => e.EpisodeNumber)
                 .HasColumnName("EPISODE_NUMBER");
 
-            modelBuilder.Entity<Episode>()
+            modelBuilder.Entity<TrackedEpisode>()
                 .Property(e => e.AirDate)
                 .HasColumnName("AIR_DATE");
 
-            modelBuilder.Entity<Episode>()
+            modelBuilder.Entity<TrackedEpisode>()
                 .Property(e => e.Name)
                 .HasColumnName("NAME")
                 .HasMaxLength(250)
                 .IsRequired();
 
-            modelBuilder.Entity<Episode>()
+            modelBuilder.Entity<TrackedEpisode>()
                 .Property(e => e.Overview)
                 .HasColumnName("OVERVIEW")
                 .HasMaxLength(4000);

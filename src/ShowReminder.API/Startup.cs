@@ -36,7 +36,7 @@ namespace ShowReminder.API
 
             services.Configure<AuthenticationParam>(Configuration.GetSection("authenticationParam"));
 
-            services.AddDbContext<ShowContext>(
+            services.AddDbContext<DataContext>(
                 options => options.UseMySQL(Configuration.GetSection("connectionString").Value));
 
             //Add CORS

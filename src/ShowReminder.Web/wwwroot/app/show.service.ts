@@ -5,7 +5,7 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/topromise';
 
 import { Show } from "./show";
-import { SavedShow } from "./saved-show";
+import { TrackedShow } from "./tracked-show";
 
 @Injectable()
 export class ShowService {
@@ -24,14 +24,14 @@ export class ShowService {
             .then(this.extractData);
     };
 
-    addShow(id: number): Promise<SavedShow> {
-        return this.http.post("http://localhost:50699/api/show/test/add/" + id, {})
+    addShow(id: number): Promise<TrackedShow> {
+        return this.http.post("http://localhost:50699/api/show/tracked/add/" + id, {})
             .toPromise()
             .then(this.extractData);
     };
 
-    getAll(): Promise<SavedShow[]> {
-        return this.http.get("http://localhost:50699/api/show/")
+    getAll(): Promise<TrackedShow[]> {
+        return this.http.get("http://localhost:50699/api/show/tracked/")
             .toPromise()
             .then(this.extractData);
     };

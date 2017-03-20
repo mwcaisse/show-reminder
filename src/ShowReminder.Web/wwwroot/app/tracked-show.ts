@@ -1,7 +1,7 @@
-﻿import { SavedEpisode } from "./saved-episode";
+﻿import { TrackedEpisode} from "./tracked-episode";
 
 
-export class SavedShow {
+export class TrackedShow {
     tvdbId: number;
     name: string;
     firstAiredDate: Date;
@@ -10,7 +10,7 @@ export class SavedShow {
     lastEpisodeId: number;
     nextEpisodeId: number;
 
-    lastEpisode: SavedEpisode;
-    nextEpisode: SavedEpisode;
+    lastEpisode: TrackedEpisode;
+    nextEpisode: TrackedEpisode;
 
 }

@@ -1,4 +1,4 @@
-﻿export class SavedEpisode {
+﻿export class TrackedEpisode {
     overallNumber: number;
     seasonNumber: number;
     episodeNumber: number;

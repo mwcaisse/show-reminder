@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ShowReminder.Data.Entity
 {
-    public class Episode : BaseEntity
+    public class TrackedEpisode : BaseEntity
     {
 
         public int? OverallNumber { get; set; }

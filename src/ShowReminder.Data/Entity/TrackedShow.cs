@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace ShowReminder.Data.Entity
 {
-    public class Show : BaseEntity
+
+    public class TrackedShow : BaseEntity
     {
         public long TvdbId { get; set; }
 
@@ -21,9 +22,9 @@ namespace ShowReminder.Data.Entity
 
         public long? NextEpisodeId { get; set; }
 
-        public Episode LastEpisode { get; set; }
+        public TrackedEpisode LastEpisode { get; set; }
 
-        public Episode NextEpisode { get; set; }
+        public TrackedEpisode NextEpisode { get; set; }
 
     }
 }
