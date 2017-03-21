@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MySQL.Data.Entity.Extensions;
 using ShowReminder.Data;
+using ShowReminder.TMDBFetcher.Model;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 
 namespace ShowReminder.API
@@ -21,6 +22,7 @@ namespace ShowReminder.API
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("authentication.json")
+                .AddJsonFile("tmdbKey.json")
                 .AddJsonFile("dbConfig.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
@@ -35,6 +37,8 @@ namespace ShowReminder.API
             services.AddOptions();
 
             services.Configure<AuthenticationParam>(Configuration.GetSection("authenticationParam"));
+
+            services.Configure<TMDBSettings>(Configuration.GetSection("tmdbSettings"));
 
             services.AddDbContext<DataContext>(
                 options => options.UseMySQL(Configuration.GetSection("connectionString").Value));
