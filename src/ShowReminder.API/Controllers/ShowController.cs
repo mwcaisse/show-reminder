@@ -9,6 +9,8 @@ using ShowReminder.API.Manager;
 using ShowReminder.API.Models;
 using ShowReminder.API.ViewModel;
 using ShowReminder.Data;
+using ShowReminder.TMDBFetcher.Model;
+using ShowReminder.TMDBFetcher.Model.Search;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 
 namespace ShowReminder.API.Controllers
@@ -19,9 +21,13 @@ namespace ShowReminder.API.Controllers
     {
 
         private readonly ShowManager _showManager;
-        public ShowController(IOptions<AuthenticationParam> optionsAccessor)
+
+        private readonly TMDBFetcher.Manager.ShowManager _tmdbShowManager;
+
+        public ShowController(IOptions<AuthenticationParam> optionsAccessor, IOptions<TMDBSettings> settingsAccessor)
         {
             _showManager = new ShowManager(optionsAccessor.Value);
+            _tmdbShowManager = new TMDBFetcher.Manager.ShowManager(settingsAccessor.Value);
         }
 
         [HttpGet]
@@ -31,6 +37,17 @@ namespace ShowReminder.API.Controllers
             return new JsonResponse<IEnumerable<Show>>()
             {
                 Data = _showManager.Search(terms),
+                ErrorMessage = null
+            };
+        }
+
+        [HttpGet]
+        [Route("test/search")]
+        public JsonResponse<SearchResult> TestSearch(string terms)
+        {
+            return new JsonResponse<SearchResult>()
+            {
+                Data = _tmdbShowManager.Search(terms),
                 ErrorMessage = null
             };
         }

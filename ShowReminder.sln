@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowReminder.Common", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowReminder.Data", "src\ShowReminder.Data\ShowReminder.Data.csproj", "{227CBF55-9973-4230-AFD5-517283227A06}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TVDBFetcher", "src\TVDBFetcher\TVDBFetcher.csproj", "{E4CBEDC4-1934-4813-8838-D144161413F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowReminder.TVDBFetcher", "src\TVDBFetcher\ShowReminder.TVDBFetcher.csproj", "{E4CBEDC4-1934-4813-8838-D144161413F9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShowReminder.TMDBFetcher", "src\ShowReminder.TMDBFetcher\ShowReminder.TMDBFetcher.csproj", "{185E3F15-BB25-44F5-B81E-0CE21DE96640}"
 EndProject

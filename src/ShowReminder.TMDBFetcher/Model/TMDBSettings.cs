@@ -10,5 +10,7 @@ namespace ShowReminder.TMDBFetcher.Model
 
         public string ApiKey { get; set; }
 
+        public string BaseUrl { get; set; }
+
     }
 }
