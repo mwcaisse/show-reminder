@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using ShowReminder.API.ViewModel;
 using ShowReminder.Data;
 using ShowReminder.TMDBFetcher.Model;
 using ShowReminder.TMDBFetcher.Model.Search;
+using ShowReminder.TMDBFetcher.Model.TV;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 
 namespace ShowReminder.API.Controllers
@@ -48,6 +50,39 @@ namespace ShowReminder.API.Controllers
             return new JsonResponse<SearchResult>()
             {
                 Data = _tmdbShowManager.Search(terms),
+                ErrorMessage = null
+            };
+        }
+
+        [HttpGet]
+        [Route("test/{id:int}")]
+        public JsonResponse<TVShow> TestGet(int id)
+        {
+            return new JsonResponse<TVShow>()
+            {
+                Data = _tmdbShowManager.GetShow(id),
+                ErrorMessage = null
+            };
+        }
+
+        [HttpGet]
+        [Route("test/{id:int}/next")]
+        public JsonResponse<TVEpisode> TestNextEpisode(int id)
+        {
+            return new JsonResponse<TVEpisode>()
+            {
+                Data = _tmdbShowManager.GetNextEpisode(id),
+                ErrorMessage = null
+            };
+        }
+
+        [HttpGet]
+        [Route("test/{id:int}/last")]
+        public JsonResponse<TVEpisode> TestLastEpisode(int id)
+        {
+            return new JsonResponse<TVEpisode>()
+            {
+                Data = _tmdbShowManager.GetLastEpisode(id),
                 ErrorMessage = null
             };
         }
