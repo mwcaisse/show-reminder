@@ -59,6 +59,11 @@ obj/
 *.user
 node_modules
 
+# VS Update FIles #
+###################
+Backup/
+UpgradeLog.htm
+
 src/ShowReminder.Web/wwwroot/lib
 src/ShowReminder.Web/wwwroot/main.js
 src/ShowReminder.Web/wwwroot/main.js.map
