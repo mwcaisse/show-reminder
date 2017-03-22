@@ -12,9 +12,13 @@ namespace ShowReminder.TMDBFetcher.Manager
     public class ShowManager : AbstractManager
     {
 
+        private readonly Cache<int, TVShow> _showCache;
+        private readonly Cache<Tuple<int, int>, TVSeason> _seasonCache;
+
         public ShowManager(TMDBSettings settings) : base(settings)
         {
-            
+            _showCache = new Cache<int, TVShow>();
+            _seasonCache = new Cache<Tuple<int, int>, TVSeason>();
         }
 
         public SearchResult Search(string query, int page = 1)
@@ -25,8 +29,20 @@ namespace ShowReminder.TMDBFetcher.Manager
 
         public TVShow GetShow(int id)
         {
+            if (_showCache.Contains(id))
+            {
+                return _showCache.Get(id);
+            }
+
+            return FetchShow(id);
+        }
+
+        private TVShow FetchShow(int id)
+        {
             var url = $"{BaseUrl}tv/{id}";
-            return GetRequest<TVShow>(url);
+            var show = GetRequest<TVShow>(url);
+            _showCache.Add(id, show);
+            return show;
         }
 
         public TVEpisode GetNextEpisode(int showId)
@@ -74,8 +90,24 @@ namespace ShowReminder.TMDBFetcher.Manager
 
         public TVSeason GetSeason(int showId, int seasonNumber)
         {
+            if (_seasonCache.Contains(GetSeasonKey(showId, seasonNumber)))
+            {
+                return _seasonCache.Get(GetSeasonKey(showId, seasonNumber));
+            }
+            return FetchSeason(showId, seasonNumber);
+        }
+
+        private TVSeason FetchSeason(int showId, int seasonNumber)
+        {
             var url = $"{BaseUrl}tv/{showId}/season/{seasonNumber}";
-            return GetRequest<TVSeason>(url);
+            var season = GetRequest<TVSeason>(url);
+            _seasonCache.Add(GetSeasonKey(showId, seasonNumber), season);
+            return season;
+        }
+
+        private Tuple<int, int> GetSeasonKey(int showId, int seasonNumber)
+        {
+            return new Tuple<int, int>(showId, seasonNumber);
         }
 
     }
