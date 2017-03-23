@@ -8,7 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MySQL.Data.Entity.Extensions;
+using ShowReminder.API.Manager;
 using ShowReminder.Data;
+using ShowReminder.TMDBFetcher.Manager;
 using ShowReminder.TMDBFetcher.Model;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 
@@ -38,16 +40,24 @@ namespace ShowReminder.API
 
             services.Configure<AuthenticationParam>(Configuration.GetSection("authenticationParam"));
 
-            services.Configure<TMDBSettings>(Configuration.GetSection("tmdbSettings"));
+
+            var tmdbSettings = new TMDBSettings();
+            Configuration.GetSection("tmdbSettings").Bind(tmdbSettings);
+            services.AddSingleton(tmdbSettings);
 
             services.AddDbContext<DataContext>(
                 options => options.UseMySQL(Configuration.GetSection("connectionString").Value));
+
+            services.AddSingleton<TVManager>();
+            services.AddTransient<ShowManager>();
 
             //Add CORS
             services.AddCors();
 
             // Add framework services.
             services.AddMvc();
+
+
            
         }
 

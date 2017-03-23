@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Internal;
 using ShowReminder.API.Mapper;
 using ShowReminder.API.Models;
+using ShowReminder.TMDBFetcher.Manager;
+using ShowReminder.TMDBFetcher.Model;
 using ShowReminder.TVDBFetcher.Manager;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 
@@ -13,14 +15,11 @@ namespace ShowReminder.API.Manager
     public class ShowManager
     {
 
-        private readonly SearchManager _searchManager;
+        private readonly TVManager _tvManager;
 
-        private readonly SeriesManager _seriesManager;
-
-        public ShowManager(AuthenticationParam authParam)
+        public ShowManager(TVManager tvManager)
         {
-            _searchManager = new SearchManager(authParam);
-            _seriesManager = new SeriesManager(authParam);
+            _tvManager = tvManager;
         }
 
         /// <summary>
@@ -32,8 +31,8 @@ namespace ShowReminder.API.Manager
         /// <returns></returns>
         public IEnumerable<Show> Search(string terms)
         {
-            var results = _searchManager.SearchByName(terms);
-            return null == results ? new List<Show>() : results.Data.ToModel();
+            var results = _tvManager.Search(terms);
+            return null == results ? new List<Show>() : results.Results.ToModel();
         }
 
         /// <summary>
@@ -43,19 +42,8 @@ namespace ShowReminder.API.Manager
         /// <returns>The show</returns>
         public Show GetShow(int id)
         {
-            var result = _seriesManager.GetSeries(id);
+            var result = _tvManager.GetShow(id);
             return result?.ToModel();
-        }
-
-        /// <summary>
-        /// Gets all episodes for a given show
-        /// </summary>
-        /// <param name="showId"></param>
-        /// <returns></returns>
-        public IEnumerable<Episode> GetAllEpisodesForShow(int showId)
-        {
-            var results = _seriesManager.GetAllSeriesEpisodes(showId)?.ToModel();
-            return results ?? new List<Episode>();
         }
 
         /// <summary>
@@ -69,30 +57,11 @@ namespace ShowReminder.API.Manager
             if (null != show)
             {
                 var nextLastShow = new ShowNextLast().PopulateFromShow(show);
-                var showEpisodes = _seriesManager.GetAllSeriesEpisodes(id)?.ToModel().ToList();
-                if (null != showEpisodes)
-                {
-                    nextLastShow.NextEpisode = GetNextAiringEpisode(showEpisodes);
-                    nextLastShow.LastEpisode = GetLastAiredEpisode(showEpisodes);
-                }
+                nextLastShow.NextEpisode = _tvManager.GetNextEpisode(id)?.ToModel();
+                nextLastShow.LastEpisode = _tvManager.GetLastEpisode(id)?.ToModel();
                 return nextLastShow;
             }
             return null;
         }
-
-        protected Episode GetNextAiringEpisode(IEnumerable<Episode> episodes)
-        {
-            return
-                episodes.OrderBy(x => x.AirDate)
-                    .FirstOrDefault(x => x.AirDate.HasValue && x.AirDate.Value > DateTime.Now);
-        }
-
-        protected Episode GetLastAiredEpisode(IEnumerable<Episode> episodes)
-        {
-            return
-                episodes.OrderByDescending(x => x.AirDate)
-                    .FirstOrDefault(x => x.AirDate.HasValue && x.AirDate.Value <= DateTime.Now);
-        }
-
     }
 }

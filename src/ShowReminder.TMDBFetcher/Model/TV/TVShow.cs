@@ -11,7 +11,7 @@ namespace ShowReminder.TMDBFetcher.Model.TV
 
         public int[] EpisodeRunTime { get; set; }
 
-        public DateTime FirstAirDate { get; set; }
+        public DateTime? FirstAirDate { get; set; }
 
         public string Homepage { get; set; }
 

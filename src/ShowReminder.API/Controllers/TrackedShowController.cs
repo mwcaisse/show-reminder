@@ -18,9 +18,8 @@ namespace ShowReminder.API.Controllers
     {
         private readonly TrackedShowManager _trackedShowManager;
 
-        public TrackedShowController(IOptions<AuthenticationParam> optionsAccessor, DataContext dataContext)
-        {
-            ShowManager showManager = new ShowManager(optionsAccessor.Value);
+        public TrackedShowController(ShowManager showManager, DataContext dataContext){
+          
             _trackedShowManager = new TrackedShowManager(dataContext, showManager);
         }
 

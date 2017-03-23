@@ -97,7 +97,7 @@ namespace ShowReminder.TMDBFetcher.Manager
 
             private readonly TimeSpan _expireAfter;
 
-            public bool Expired => _added + _expireAfter > DateTime.Now;
+            public bool Expired => _added + _expireAfter < DateTime.Now;
 
             public CacheItem(T item) : this(item, DefaultExpireAfter)
             {

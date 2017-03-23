@@ -24,12 +24,9 @@ namespace ShowReminder.API.Controllers
 
         private readonly ShowManager _showManager;
 
-        private readonly TMDBFetcher.Manager.ShowManager _tmdbShowManager;
-
-        public ShowController(IOptions<AuthenticationParam> optionsAccessor, IOptions<TMDBSettings> settingsAccessor)
+        public ShowController(ShowManager showManager)
         {
-            _showManager = new ShowManager(optionsAccessor.Value);
-            _tmdbShowManager = new TMDBFetcher.Manager.ShowManager(settingsAccessor.Value);
+            _showManager = showManager;
         }
 
         [HttpGet]
@@ -42,50 +39,7 @@ namespace ShowReminder.API.Controllers
                 ErrorMessage = null
             };
         }
-
-        [HttpGet]
-        [Route("test/search")]
-        public JsonResponse<SearchResult> TestSearch(string terms)
-        {
-            return new JsonResponse<SearchResult>()
-            {
-                Data = _tmdbShowManager.Search(terms),
-                ErrorMessage = null
-            };
-        }
-
-        [HttpGet]
-        [Route("test/{id:int}")]
-        public JsonResponse<TVShow> TestGet(int id)
-        {
-            return new JsonResponse<TVShow>()
-            {
-                Data = _tmdbShowManager.GetShow(id),
-                ErrorMessage = null
-            };
-        }
-
-        [HttpGet]
-        [Route("test/{id:int}/next")]
-        public JsonResponse<TVEpisode> TestNextEpisode(int id)
-        {
-            return new JsonResponse<TVEpisode>()
-            {
-                Data = _tmdbShowManager.GetNextEpisode(id),
-                ErrorMessage = null
-            };
-        }
-
-        [HttpGet]
-        [Route("test/{id:int}/last")]
-        public JsonResponse<TVEpisode> TestLastEpisode(int id)
-        {
-            return new JsonResponse<TVEpisode>()
-            {
-                Data = _tmdbShowManager.GetLastEpisode(id),
-                ErrorMessage = null
-            };
-        }
+     
 
         [HttpGet]
         [Route("{id}")]
@@ -94,17 +48,6 @@ namespace ShowReminder.API.Controllers
             return new JsonResponse<Show>()
             {
                 Data = _showManager.GetShow(id),
-                ErrorMessage = null
-            };
-        }
-
-        [HttpGet]
-        [Route("{id}/episodes")]
-        public JsonResponse<IEnumerable<Episode>> GetEpisodes(int id)
-        {
-            return new JsonResponse<IEnumerable<Episode>>()
-            {
-                Data = _showManager.GetAllEpisodesForShow(id),
                 ErrorMessage = null
             };
         }

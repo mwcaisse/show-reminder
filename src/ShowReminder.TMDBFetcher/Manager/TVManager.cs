@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using ShowReminder.TMDBFetcher.Model;
@@ -9,13 +10,13 @@ using ShowReminder.TMDBFetcher.Model.TV;
 
 namespace ShowReminder.TMDBFetcher.Manager
 {
-    public class ShowManager : AbstractManager
+    public class TVManager : AbstractManager
     {
 
         private readonly Cache<int, TVShow> _showCache;
         private readonly Cache<Tuple<int, int>, TVSeason> _seasonCache;
 
-        public ShowManager(TMDBSettings settings) : base(settings)
+        public TVManager(TMDBSettings settings) : base(settings)
         {
             _showCache = new Cache<int, TVShow>();
             _seasonCache = new Cache<Tuple<int, int>, TVSeason>();
