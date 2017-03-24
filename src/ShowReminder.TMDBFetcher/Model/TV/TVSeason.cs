@@ -9,7 +9,7 @@ namespace ShowReminder.TMDBFetcher.Model.TV
 
         public int Id { get; set; }
 
-        public DateTime AirDate { get; set; }
+        public DateTime? AirDate { get; set; }
 
         public List<TVEpisode> Episodes { get; set; }
 

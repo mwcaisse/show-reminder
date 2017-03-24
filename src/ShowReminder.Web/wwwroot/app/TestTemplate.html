@@ -67,7 +67,7 @@
                     <tr *ngFor="let show of trackedShows">
                         <td>{{show.name}}</td>
                         <td>{{show.firstAiredDate | date: "MM/dd/yyyy"}}</td>
-                        <td>{{show.airDay}} at {{show.airTime}}</td>
+                        <td>{{show.airDay}}{{show.airTime != null && show.airTime.length > 0 ? 'at ' + airTime : ''}}</td>
                         <td>{{show.lastEpisode === null ? "N/A" : (show.lastEpisode.airDate | date: "MM/dd/yyyy")}}</td>
                         <td>{{show.nextEpisode === null ? "N/A" : (show.nextEpisode.airDate | date: "MM/dd/yyyy")}}</td>
                     </tr>

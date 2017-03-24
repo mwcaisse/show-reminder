@@ -65,7 +65,6 @@ namespace ShowReminder.API.Mapper
             if (null != airDate)
             {
                 model.AirsDayOfWeek = airDate.Value.ToString("dddd");
-                model.AirsTime = airDate.Value.ToString("HH:mm");
             }
 
             return model;
