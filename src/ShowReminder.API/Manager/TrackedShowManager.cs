@@ -48,8 +48,10 @@ namespace ShowReminder.API.Manager
 
             RefetchExpiredShows(shows);
 
-            return shows;
-
+            return shows.OrderBy(x =>
+                null == x.NextEpisode ? DateTime.MaxValue : x.NextEpisode.AirDate)
+                .ThenBy(x => x.Name)
+                .ToList();
         }
 
         protected void RefetchExpiredShows(IEnumerable<TrackedShow> shows)
