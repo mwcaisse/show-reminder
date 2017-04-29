@@ -40,7 +40,7 @@ namespace ShowReminder.API.Manager
         /// </summary>
         /// <param name="id">The id of the show</param>
         /// <returns>The show</returns>
-        public Show GetShow(int id)
+        public Show GetShow(long id)
         {
             var result = _tvManager.GetShow(id);
             return result?.ToModel();
@@ -51,7 +51,7 @@ namespace ShowReminder.API.Manager
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ShowNextLast GetShowWithNextLast(int id)
+        public ShowNextLast GetShowWithNextLast(long id)
         {
             var show = GetShow(id);
             if (null != show)

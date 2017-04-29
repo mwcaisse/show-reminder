@@ -13,13 +13,13 @@ namespace ShowReminder.TMDBFetcher.Manager
     public class TVManager : AbstractManager
     {
 
-        private readonly Cache<int, TVShow> _showCache;
-        private readonly Cache<Tuple<int, int>, TVSeason> _seasonCache;
+        private readonly Cache<long, TVShow> _showCache;
+        private readonly Cache<Tuple<long, int>, TVSeason> _seasonCache;
 
         public TVManager(TMDBSettings settings) : base(settings)
         {
-            _showCache = new Cache<int, TVShow>();
-            _seasonCache = new Cache<Tuple<int, int>, TVSeason>();
+            _showCache = new Cache<long, TVShow>();
+            _seasonCache = new Cache<Tuple<long, int>, TVSeason>();
         }
 
         public SearchResult Search(string query, int page = 1)
@@ -28,7 +28,7 @@ namespace ShowReminder.TMDBFetcher.Manager
             return GetRequest<SearchResult>(url);
         }
 
-        public TVShow GetShow(int id)
+        public TVShow GetShow(long id)
         {
             if (_showCache.Contains(id))
             {
@@ -38,7 +38,7 @@ namespace ShowReminder.TMDBFetcher.Manager
             return FetchShow(id);
         }
 
-        private TVShow FetchShow(int id)
+        private TVShow FetchShow(long id)
         {
             var url = $"{BaseUrl}tv/{id}";
             var show = GetRequest<TVShow>(url);
@@ -46,7 +46,7 @@ namespace ShowReminder.TMDBFetcher.Manager
             return show;
         }
 
-        public TVEpisode GetNextEpisode(int showId)
+        public TVEpisode GetNextEpisode(long showId)
         {
             TVShow show = GetShow(showId);
 
@@ -67,7 +67,7 @@ namespace ShowReminder.TMDBFetcher.Manager
         }
 
         
-        public TVEpisode GetLastEpisode(int showId)
+        public TVEpisode GetLastEpisode(long showId)
         {
 
             //TODO: Account for the case where the lastEpisode is in the previous season
@@ -89,7 +89,7 @@ namespace ShowReminder.TMDBFetcher.Manager
             return lastEpisode;
         }
 
-        public TVSeason GetSeason(int showId, int seasonNumber)
+        public TVSeason GetSeason(long showId, int seasonNumber)
         {
             if (_seasonCache.Contains(GetSeasonKey(showId, seasonNumber)))
             {
@@ -98,7 +98,7 @@ namespace ShowReminder.TMDBFetcher.Manager
             return FetchSeason(showId, seasonNumber);
         }
 
-        private TVSeason FetchSeason(int showId, int seasonNumber)
+        private TVSeason FetchSeason(long showId, int seasonNumber)
         {
             var url = $"{BaseUrl}tv/{showId}/season/{seasonNumber}";
             var season = GetRequest<TVSeason>(url);
@@ -106,9 +106,9 @@ namespace ShowReminder.TMDBFetcher.Manager
             return season;
         }
 
-        private Tuple<int, int> GetSeasonKey(int showId, int seasonNumber)
+        private Tuple<long, int> GetSeasonKey(long showId, int seasonNumber)
         {
-            return new Tuple<int, int>(showId, seasonNumber);
+            return new Tuple<long, int>(showId, seasonNumber);
         }
 
     }

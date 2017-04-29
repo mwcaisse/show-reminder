@@ -41,11 +41,38 @@ namespace ShowReminder.API.Manager
         /// <returns></returns>
         public List<TrackedShow> GetAll()
         {
-            return _dataContext.Shows
+            var shows = _dataContext.Shows
                 .Include(x => x.NextEpisode)
                 .Include(x => x.LastEpisode)
                 .ToList();
 
+            RefetchExpiredShows(shows);
+
+            return shows;
+
+        }
+
+        protected void RefetchExpiredShows(IEnumerable<TrackedShow> shows)
+        {
+            foreach (TrackedShow show in shows)
+            {
+                if (null != show.NextEpisode && show.NextEpisode.AirDate < DateTime.Now)
+                {
+                    RefetchShow(show);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the given show with updated information from the source
+        /// </summary>
+        /// <param name="show"></param>
+        protected void RefetchShow(TrackedShow show)
+        {
+            var sourceShow = _showManager.GetShowWithNextLast(show.TvdbId);
+            UpdatedTrackedShowFromShow(show, sourceShow);
+
+            _dataContext.SaveChanges();
         }
 
         /// <summary>
@@ -77,6 +104,10 @@ namespace ShowReminder.API.Manager
 
         protected TrackedEpisode CreateTrackedEpisodeFromEpisode(Episode episode)
         {
+            if (null == episode)
+            {
+                return null;
+            }
             return new TrackedEpisode()
             {
                 OverallNumber = episode.OverallNumber,
@@ -99,15 +130,22 @@ namespace ShowReminder.API.Manager
                 AirTime = show.AirsTime
             };
 
-            if (null != show.LastEpisode)
-            {
-                trackedShow.LastEpisode = CreateTrackedEpisodeFromEpisode(show.LastEpisode);
-            }
+            trackedShow.LastEpisode = CreateTrackedEpisodeFromEpisode(show.LastEpisode);
+            trackedShow.NextEpisode = CreateTrackedEpisodeFromEpisode(show.NextEpisode);
+           
 
-            if (null != show.NextEpisode)
-            {
-                trackedShow.NextEpisode = CreateTrackedEpisodeFromEpisode(show.NextEpisode);
-            }
+            return trackedShow;
+        }
+
+        protected TrackedShow UpdatedTrackedShowFromShow(TrackedShow trackedShow, ShowNextLast show)
+        {
+            trackedShow.Name = show.Name;
+            trackedShow.FirstAiredDate = show.FirstAired;
+            trackedShow.AirDay = show.AirsDayOfWeek;
+            trackedShow.AirTime = show.AirsTime;
+
+            trackedShow.LastEpisode = CreateTrackedEpisodeFromEpisode(show.LastEpisode);
+            trackedShow.NextEpisode = CreateTrackedEpisodeFromEpisode(show.NextEpisode);
 
             return trackedShow;
         }
