@@ -13,4 +13,6 @@ export class TrackedShow {
     lastEpisode: TrackedEpisode;
     nextEpisode: TrackedEpisode;
 
+    detailsExpanded = false;
+
 }

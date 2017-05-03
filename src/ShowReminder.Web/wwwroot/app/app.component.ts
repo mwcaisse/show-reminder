@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
 
     trackedShows: TrackedShow[] = [];
 
+    trackedShowsExpanded: TrackedShow[] = [];
+
     searchTerms: string;
 
     selectedShow: Show;
@@ -50,5 +52,14 @@ export class AppComponent implements OnInit {
 
     refresh(): void {
         this.getAllShows();
+    }
+
+    toggleShowExpanded(show: TrackedShow): void {
+        var index = this.trackedShowsExpanded.indexOf(show);
+        if (index !== -1) {
+            this.trackedShowsExpanded.splice(index, 1);
+        } else {
+            this.trackedShowsExpanded.push(show);
+        }
     }
 }

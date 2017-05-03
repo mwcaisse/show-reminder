@@ -53,9 +53,10 @@
             </a>
         </div>
         <div class="card-block">
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Name</th>
                         <th>First Aired</th>
                         <th>Airs On</th>
@@ -63,13 +64,46 @@
                         <th>Next Airs</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let show of trackedShows">
+                <tbody *ngFor="let show of trackedShows">
+                    <tr>
+                        <td>
+                            <a href="#" (click)="toggleShowExpanded(show)">
+                                <i class="pull-right fa"
+                                   [class.fa-chevron-up]="trackedShowsExpanded.indexOf(show) !== -1"
+                                   [class.fa-chevron-down]="trackedShowsExpanded.indexOf(show) === -1"></i>
+                            </a>
+                        </td>
                         <td>{{show.name}}</td>
                         <td>{{show.firstAiredDate | date: "MM/dd/yyyy"}}</td>
                         <td>{{show.airDay}}{{show.airTime != null && show.airTime.length > 0 ? 'at ' + airTime : ''}}</td>
                         <td>{{show.lastEpisode === null ? "N/A" : (show.lastEpisode.airDate | date: "MM/dd/yyyy")}}</td>
                         <td>{{show.nextEpisode === null ? "N/A" : (show.nextEpisode.airDate | date: "EEEE, LLLL dd, yyyy")}}</td>
+                    </tr>
+                    <tr [class.hidden]="trackedShowsExpanded.indexOf(show) === -1">
+                        <td colspan="6">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <th>Season</th>
+                                        <th>Episode</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngIf="show.lastEpisode !== null">
+                                        <th>Last Episode</th>
+                                        <td>{{show.lastEpisode.seasonNumber}}</td>
+                                        <td>{{show.lastEpisode.episodeNumber}}</td>
+                                    </tr>
+                                    <tr *ngIf="show.nextEpisode !== null">
+                                        <th>Next Episode</th>
+                                        <td>{{show.nextEpisode.seasonNumber}}</td>
+                                        <td>{{show.nextEpisode.episodeNumber}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
                     </tr>
                 </tbody>
             </table>

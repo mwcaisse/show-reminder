@@ -58,7 +58,7 @@ namespace ShowReminder.API.Manager
         {
             foreach (TrackedShow show in shows)
             {
-                if ((null == show.NextEpisode || show.NextEpisode.AirDate < DateTime.Now) 
+                if ((null == show.NextEpisode || show.NextEpisode.AirDate < DateTime.Now.Date) 
                     && show.UpdateDate.Date != DateTime.Now.Date)
                 {
                     RefetchShow(show);
