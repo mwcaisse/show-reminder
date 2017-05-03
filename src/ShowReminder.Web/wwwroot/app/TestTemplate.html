@@ -65,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let show of trackedShows">
-                    <tr>
+                    <tr [class.table-success]="airedYesterday(show)">
                         <td>
                             <a href="#" (click)="toggleShowExpanded(show)">
                                 <i class="fa"

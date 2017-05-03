@@ -73,4 +73,17 @@ export class AppComponent implements OnInit {
             this.trackedShowsExpanded.push(show);
         }
     }
+
+    airedYesterday(show: TrackedShow): boolean {
+        if (null !== show.lastEpisode) {
+            var yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+
+            var airDate = new Date(show.lastEpisode.airDate);
+            return yesterday.getDate() === airDate.getDate() &&
+                   yesterday.getFullYear() === airDate.getFullYear() &&
+                   yesterday.getMonth() === airDate.getMonth();
+        }
+        return false;
+    }
 }
