@@ -5,7 +5,7 @@
         <div class="card-header">
             Add Show(s)
             <a href="#" (click)="toggleCollapsed()">
-                <i class="pull-right fa"
+                <i class="pull-right  fa"
                    [class.fa-chevron-up]="collapsed === false"
                    [class.fa-chevron-down]="collapsed === true"></i>
             </a>
@@ -68,9 +68,12 @@
                     <tr>
                         <td>
                             <a href="#" (click)="toggleShowExpanded(show)">
-                                <i class="pull-right fa"
+                                <i class="fa"
                                    [class.fa-chevron-up]="trackedShowsExpanded.indexOf(show) !== -1"
                                    [class.fa-chevron-down]="trackedShowsExpanded.indexOf(show) === -1"></i>
+                            </a>
+                            <a href="#" (click)="deleteShow(show)">
+                                <i class="fa fa-trash"></i>
                             </a>
                         </td>
                         <td>{{show.name}}</td>

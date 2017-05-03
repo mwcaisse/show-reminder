@@ -105,6 +105,20 @@ namespace ShowReminder.API.Manager
             return trackedShow;
         }
 
+        /// <summary>
+        /// Deletes the tracked show with the given id
+        /// </summary>
+        /// <param name="showId"></param>
+        public void Delete(int id)
+        {
+            var show = _dataContext.Shows.FirstOrDefault(x => x.Id == id);
+            if (null != show)
+            {
+                _dataContext.Shows.Remove(show);
+                _dataContext.SaveChanges();
+            }
+        }
+
         protected TrackedEpisode CreateTrackedEpisodeFromEpisode(Episode episode)
         {
             if (null == episode)

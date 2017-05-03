@@ -2,6 +2,7 @@
 
 
 export class TrackedShow {
+    id: number;
     tvdbId: number;
     name: string;
     firstAiredDate: Date;

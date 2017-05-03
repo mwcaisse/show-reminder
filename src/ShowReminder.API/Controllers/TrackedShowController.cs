@@ -68,6 +68,29 @@ namespace ShowReminder.API.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("{id}")]
+        public JsonResponse<bool> Delete(int id)
+        {
+            try
+            {
+                _trackedShowManager.Delete(id);
+                return new JsonResponse<bool>()
+                {
+                    Data = true,
+                    ErrorMessage = null
+                };
+            }
+            catch (ManagerException e)
+            {
+                return new JsonResponse<bool>()
+                {
+                    Data = false,
+                    ErrorMessage = e.Message
+                };
+            }
+        }
+
        
     }
 }

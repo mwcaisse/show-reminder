@@ -36,6 +36,12 @@ export class ShowService {
             .then(this.extractData);
     };
 
+    delete(id: number): Promise<boolean> {
+        return this.http.delete("http://localhost:50699/api/show/tracked/" + id)
+            .toPromise()
+            .then(this.extractData);
+    }
+
     private extractData(res: Response) {
         let body = res.json();
         return body.data || {};

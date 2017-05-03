@@ -54,6 +54,17 @@ export class AppComponent implements OnInit {
         this.getAllShows();
     }
 
+    deleteShow(show: TrackedShow): void {
+        this.showService.delete(show.id).then(res  => {
+            if (res) {
+                var index = this.trackedShows.indexOf(show);
+                this.trackedShows.splice(index, 1);
+            } else {
+                alert("Failed to delete show...");
+            }
+        });
+    }
+
     toggleShowExpanded(show: TrackedShow): void {
         var index = this.trackedShowsExpanded.indexOf(show);
         if (index !== -1) {
