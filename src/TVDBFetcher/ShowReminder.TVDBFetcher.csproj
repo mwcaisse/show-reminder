@@ -9,6 +9,7 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+	<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <RootNamespace>ShowReminder.TVDBFetcher</RootNamespace>
   </PropertyGroup>
 
