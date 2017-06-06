@@ -13,7 +13,7 @@ using ShowReminder.TVDBFetcher.Model.Authentication;
 namespace ShowReminder.API.Controllers
 {
     
-    [Route("api/show/tracked")]
+    [Route("show/tracked")]
     public class TrackedShowController : Controller
     {
         private readonly TrackedShowManager _trackedShowManager;

@@ -14,7 +14,7 @@ using ShowReminder.TVDBFetcher.Model.Search;
 
 namespace ShowReminder.API.Controllers
 {
-    [Route("api/test")]
+    [Route("test")]
     public class TestController : Controller
     {
 
