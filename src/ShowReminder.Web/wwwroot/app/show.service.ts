@@ -10,12 +10,12 @@ import { TrackedShow } from "./tracked-show";
 @Injectable()
 export class ShowService {
 
-    private baseUrl: string = "http://localhost:50699/";
+    private baseUrl: string = "/showreminder/api/";
 
     constructor(private http: Http) {}
 
     searchShows(terms: string): Promise<Show[]> {
-        return this.http.get(this.baseUrl + "/show/search?terms=" + terms)
+        return this.http.get(this.baseUrl + "show/search?terms=" + terms)
             .toPromise()
             .then(this.extractData);
     };
