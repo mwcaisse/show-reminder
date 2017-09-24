@@ -10,7 +10,7 @@ import { TrackedShow } from "./tracked-show";
 @Injectable()
 export class ShowService {
 
-    private baseUrl: string = "http://localhost:50699/";
+    private baseUrl: string = "/showreminder/api/";
 
     constructor(private http: Http) {}
 
