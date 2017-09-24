@@ -2,7 +2,7 @@
 import { Http, Response } from "@angular/http";
 
 import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/topromise';
+import 'rxjs/add/operator/toPromise';
 
 import { Show } from "./show";
 import { TrackedShow } from "./tracked-show";
