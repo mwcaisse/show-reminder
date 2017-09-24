@@ -3,10 +3,13 @@
  * Adjust as necessary for your application needs.
  */
 (function (global) {
+
+    var rootPathPrefix = $("#rootPathPrefix").val();
+
     System.config({
         paths: {
             // paths serve as alias
-            'npm:': '/lib/'
+            'npm:': rootPathPrefix + '/lib/'
         },
         // map tells the System loader where to look for things
         map: {

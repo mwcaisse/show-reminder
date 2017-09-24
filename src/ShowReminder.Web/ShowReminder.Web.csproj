@@ -8,6 +8,7 @@
     <PackageId>ShowReminder.Web</PackageId>
     <UserSecretsId>aspnet-ShowReminder.Web-20170211115831</UserSecretsId>
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
