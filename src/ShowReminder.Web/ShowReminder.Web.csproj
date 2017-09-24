@@ -8,7 +8,6 @@
     <PackageId>ShowReminder.Web</PackageId>
     <UserSecretsId>aspnet-ShowReminder.Web-20170211115831</UserSecretsId>
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
-    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,8 +6,7 @@
     <AssemblyName>ShowReminder.API</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>ShowReminder.API</PackageId>
-    <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
-    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
+    <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>    
   </PropertyGroup>
 
   <ItemGroup>
