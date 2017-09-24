@@ -4,7 +4,7 @@
  */
 (function (global) {
 
-    var rootPathPrefix = $("#rootPathPrefix").val();
+    var rootPathPrefix = document.getElementById("rootPathPrefix").value;
 
     System.config({
         paths: {
