@@ -2,8 +2,7 @@
     <div>
         <section class="section">
             <add-show></add-show>
-        </section>
-        <section class="section">
+            <br/>
             <show-list></show-list>
         </section>
     </div>

@@ -14,7 +14,7 @@ var show = {
         return Proxy.post("show/tracked/add/" + id, {});
     },
     delete: function(id) {
-        return Proxy.del("show/tracked/" + id);
+        return Proxy.delete("show/tracked/" + id);
     }
 };
 

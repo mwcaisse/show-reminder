@@ -96,6 +96,10 @@
         }, 
         created: function () {
             this.fetchShows();
+
+            system.events.$on("show:added", function () {
+                this.fetchShows();
+            }.bind(this))
         },
         components: {
             "app-icon": Icon 
