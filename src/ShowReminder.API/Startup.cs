@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MySQL.Data.Entity.Extensions;
 using ShowReminder.API.Manager;
 using ShowReminder.Data;
 using ShowReminder.TMDBFetcher.Manager;
@@ -46,7 +46,7 @@ namespace ShowReminder.API
             services.AddSingleton(tmdbSettings);
 
             services.AddDbContext<DataContext>(
-                options => options.UseMySQL(Configuration.GetSection("connectionString").Value));
+                options => options.UseMySql(Configuration.GetSection("connectionString").Value));
 
             services.AddSingleton<TVManager>();
             services.AddTransient<ShowManager>();

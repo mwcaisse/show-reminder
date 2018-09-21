@@ -1,5 +1,6 @@
 ﻿@{
-    var rootPathPrefix = "/showreminder";
+    var rootPathPrefix = ViewData["RootPathPrefix"];
+    var apiUrl = ViewData["ApiUrl"];
 }
 
 <!DOCTYPE html>
@@ -15,6 +16,7 @@
 </head>
 <body>
     @Html.Hidden("rootPathPrefix", rootPathPrefix)
+    @Html.Hidden("apiUrl", apiUrl)
 
     <div>
         @RenderBody()

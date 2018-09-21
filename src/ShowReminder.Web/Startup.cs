@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ShowReminder.Web.Models;
 
 namespace ShowReminder.Web
 {
@@ -18,6 +19,7 @@ namespace ShowReminder.Web
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("deploymentProperties.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -29,6 +31,15 @@ namespace ShowReminder.Web
         {
             // Add framework services.
             services.AddMvc();
+
+            var apiUrl = Configuration.GetValue("apiUrl", "");
+            var rootPathPrefix = Configuration.GetValue("rootPathPrefix", "");
+
+            services.AddSingleton<DeploymentProperties>(new DeploymentProperties()
+            {
+                ApiUrl = apiUrl,
+                RootPathPrefix = rootPathPrefix
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

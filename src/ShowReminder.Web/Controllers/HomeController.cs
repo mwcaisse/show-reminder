@@ -3,26 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ShowReminder.Web.Models;
 
 namespace ShowReminder.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly DeploymentProperties _deploymentProperties;
+
+        public HomeController(DeploymentProperties deploymentProperties)
+        {
+            _deploymentProperties = deploymentProperties;
+        }
+
         public IActionResult Index()
         {
-            return View();
-        }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["RootPathPrefix"] = _deploymentProperties.RootPathPrefix;
+            ViewData["ApiUrl"] = _deploymentProperties.ApiUrl;
 
             return View();
         }

@@ -17,6 +17,7 @@ namespace ShowReminder.Data
         {
             ConfigureTrackedShow(modelBuilder);
             ConfigureTrackedEpisode(modelBuilder);
+
         }
 
         protected void ConfigureBasePropertiesForEntity<T>(ModelBuilder modelBuilder) where T : BaseEntity

@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using ShowReminder.API.Manager;
 using ShowReminder.API.Models;
 using ShowReminder.API.ViewModel;
-using ShowReminder.Data;
-using ShowReminder.TMDBFetcher.Model;
-using ShowReminder.TMDBFetcher.Model.Search;
-using ShowReminder.TMDBFetcher.Model.TV;
-using ShowReminder.TVDBFetcher.Model.Authentication;
+
 
 namespace ShowReminder.API.Controllers
 {

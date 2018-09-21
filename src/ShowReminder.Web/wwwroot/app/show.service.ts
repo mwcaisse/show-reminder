@@ -12,7 +12,9 @@ export class ShowService {
 
     private baseUrl: string = "/showreminder/api/";
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) {
+        this.baseUrl = (<HTMLInputElement>document.getElementById("apiUrl")).value;
+    }
 
     searchShows(terms: string): Promise<Show[]> {
         return this.http.get(this.baseUrl + "show/search?terms=" + terms)
