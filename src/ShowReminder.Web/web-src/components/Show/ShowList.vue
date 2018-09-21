@@ -10,6 +10,9 @@
             <ul v-if="shows.length > 0">
                 <li class="box" v-for="show in shows">
                     <span class="subtitle">{{show.name}}</span>
+                    <span class="is-pulled-right">
+                        <app-icon icon="trash" :action="true" v-on:click.native="deleteShow(show)"></app-icon>
+                    </span>
                     <div class="columns">
                         <div class="column">
                             <div class="field">
@@ -17,7 +20,7 @@
                                 <div class="control">
                                     <span>{{ show.firstAiredDate | formatDate }}</span>
                                 </div>
-                            </div>                             
+                            </div>
                             <div class="field">
                                 <label class="label">Last Aired</label>
                                 <div class="control">
