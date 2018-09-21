@@ -70,5 +70,8 @@ src/ShowReminder.Web/wwwroot/main.js.map
 
 *.lock.json
 
+# Generated web assets
+wwwroot/
+
 
 
