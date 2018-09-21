@@ -41,6 +41,10 @@
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.2.281" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="web-src\services\" />
+  </ItemGroup>
+
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="bower install" />
   </Target>

@@ -2,37 +2,5 @@
     var rootPathPrefix = ViewData["RootPathPrefix"];
 }
 
-@section scripts{
-
-    <!-- 1. Load libraries -->
-    <!-- Polyfill(s) for older browsers -->
-    <script src="@rootPathPrefix/lib/core-js/shim.min.js"></script>
-    <script src="@rootPathPrefix/lib/zone.js/zone.js"></script>
-    <!--<script src="lib/reflect-metadata/Reflect.js"></script>-->
-    <script src="@rootPathPrefix/lib/systemjs/system.src.js"></script>
-    <!-- 2. Configure SystemJS -->
-    <script src="@rootPathPrefix/systemjs.config.js"></script>
-    <script>
-        System.import('app').catch(function(err) { console.error(err); });
-    </script>
-}
-
-<!-- Add a simple nav bar Probally do want to move this over to the layout.cshtml at some point-->
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent">
-        <span class="navbar-brand" href="#">Show Reminder</span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a classs="nav-link" href="#">Home</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-    
-
-<my-app>Loading...</my-app>
+<div id="app"></div>
+<script src="@rootPathPrefix/views/shows.js" type="text/javascript"></script>
