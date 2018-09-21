@@ -7,22 +7,25 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--  scripts -->
+    <script type="text/javascript" src="@rootPathPrefix/lib/jquery/js/jquery.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="@rootPathPrefix/lib/bulma/css/bulma.css" />
+
     <title>Show Reminder</title>
-    <link rel="stylesheet" href="@rootPathPrefix/lib/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="@rootPathPrefix/css/site.css" />
-    <link rel="stylesheet" href="@rootPathPrefix/lib/font-awesome/css/font-awesome.css" />
-    
 </head>
 <body>
     @Html.Hidden("rootPathPrefix", rootPathPrefix)
     @Html.Hidden("apiUrl", apiUrl)
 
-    <div>
+    <!-- the body of the page -->
+    <div class="container">
         @RenderBody()
     </div>
-    
-    
+
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

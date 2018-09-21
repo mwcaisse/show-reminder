@@ -1,81 +1,68 @@
 ﻿/*
-This file in the main entry point for defining Gulp tasks and using Gulp plugins.
-Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
+This file is the main entry point for defining Gulp tasks and using Gulp plugins.
+Click here to learn more. https://go.microsoft.com/fwlink/?LinkId=518007
 */
 
 var gulp = require('gulp');
 
-var libs = './wwwroot/lib/';
+var libs = "./wwwroot/lib/";
 
 gulp.task('default', function () {
     // place code for your default task here
 });
 
-gulp.task('default', function () {
-    // place code for your default task here
+gulp.task("restore:bulma", function () {
+    return gulp.src([
+        "node_modules/bulma/css/*.*"
+    ]).pipe(gulp.dest(libs + "bulma/css"));
 });
 
-gulp.task('restore:core-js', function () {
-    gulp.src([
-        'node_modules/core-js/client/*.js'
-    ]).pipe(gulp.dest(libs + 'core-js'));
-});
-gulp.task('restore:zone.js', function () {
-    gulp.src([
-        'node_modules/zone.js/dist/*.js'
-    ]).pipe(gulp.dest(libs + 'zone.js'));
-});
-gulp.task('restore:reflect-metadata', function () {
-    gulp.src([
-        'node_modules/reflect-metadata/reflect.js'
-    ]).pipe(gulp.dest(libs + 'reflect-metadata'));
-});
-gulp.task('restore:systemjs', function () {
-    gulp.src([
-        'node_modules/systemjs/dist/*.js'
-    ]).pipe(gulp.dest(libs + 'systemjs'));
-});
-gulp.task('restore:rxjs', function () {
-    gulp.src([
-        'node_modules/rxjs/**/*.js'
-    ]).pipe(gulp.dest(libs + 'rxjs'));
-});
-gulp.task('restore:angular-in-memory-web-api', function () {
-    gulp.src([
-        'node_modules/angular-in-memory-web-api/**/*.js'
-    ]).pipe(gulp.dest(libs + 'angular-in-memory-web-api'));
+gulp.task("restore:fontawesome", function () {
+    return gulp.src([
+        "node_modules/@fortawesome/fontawesome-free-regular/index.js"
+    ]).pipe(gulp.dest(libs + "/fontawesome/js/"));
 });
 
-gulp.task('restore:angular', function () {
-    gulp.src([
-        'node_modules/@angular/**/*.js'
-    ]).pipe(gulp.dest(libs + '@angular'));
+gulp.task('restore:jquery', function () {
+    return gulp.src([
+        'node_modules/jquery/dist/*.js'
+    ]).pipe(gulp.dest(libs + 'jquery/js'));
 });
 
-gulp.task('restore:bootstrap', function () {
-    gulp.src([
-        'node_modules/bootstrap/dist/**/*.*'
-    ]).pipe(gulp.dest(libs + 'bootstrap'));
+gulp.task('restore:lodash', function () {
+    return gulp.src([
+        'node_modules/lodash/lodash.js',
+        'node_modules/lodash/lodash.min.js'
+    ]).pipe(gulp.dest(libs + 'lodash/js'));
 });
 
-gulp.task('restore:font-awesome', function() {
-    gulp.src([
-        'node_modules/font-awesome/css/*.*'
-    ]).pipe(gulp.dest(libs + 'font-awesome/css'));
-
-    gulp.src([
-        'node_modules/font-awesome/fonts/*.*'
-    ]).pipe(gulp.dest(libs + 'font-awesome/fonts'));
+gulp.task('restore:moment', function () {
+    return gulp.src([
+        'node_modules/moment/moment.js',
+        'node_modules/moment/min/moment.min.js'
+    ]).pipe(gulp.dest(libs + 'moment/js'));
 });
 
-gulp.task('restore', [
-    'restore:core-js',
-    'restore:zone.js',
-    'restore:reflect-metadata',
-    'restore:systemjs',
-    'restore:rxjs',
-    'restore:angular-in-memory-web-api',
-    'restore:angular',
-    'restore:bootstrap',
-    'restore:font-awesome'
-]);
+gulp.task('restore:q', function () {
+    return gulp.src([
+        'node_modules/q/q.js'
+    ]).pipe(gulp.dest(libs + 'q/js'));
+});
+
+gulp.task('restore:vue', function () {
+    return gulp.src([
+        'node_modules/vue/dist/vue.js',
+        'node_modules/vue/dist/vue.min.js'
+    ]).pipe(gulp.dest(libs + 'vue/js'));
+});
+
+
+gulp.task('restore', gulp.series(
+    'restore:bulma',
+    'restore:fontawesome',
+    'restore:jquery',
+    'restore:lodash',
+    'restore:moment',
+    'restore:q',
+    'restore:vue'
+));
