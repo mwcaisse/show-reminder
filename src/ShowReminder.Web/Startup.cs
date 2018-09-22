@@ -62,6 +62,7 @@ namespace ShowReminder.Web
 
             services.AddSingleton<TVManager>();
             services.AddTransient<ShowManager>();
+            services.AddTransient<TrackedShowManager>();
 
 
             // Add framework services.

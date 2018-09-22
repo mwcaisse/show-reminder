@@ -21,11 +21,10 @@ namespace ShowReminder.Web.Controllers.Api
         private readonly TrackedShowManager _trackedShowManager;
         private readonly QuartzScheduler _quartzScheduler;
         
-        public TrackedShowApiController(ShowManager showManager, DataContext dataContext,
-            QuartzScheduler quartzScheduler)
+        public TrackedShowApiController(TrackedShowManager trackedShowmanager, QuartzScheduler quartzScheduler)
         {
           
-            _trackedShowManager = new TrackedShowManager(dataContext, showManager);
+            _trackedShowManager = trackedShowmanager;
             this._quartzScheduler = quartzScheduler;
         }
 
