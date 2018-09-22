@@ -1,4 +1,4 @@
 ﻿{
   "RootPathPrefix": "",
-  "ApiUrl": "http://localhost:50699/"
+  "ApiUrl": "/api/"
 }

@@ -4,9 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ShowReminder.Data;
+using ShowReminder.TMDBFetcher.Manager;
+using ShowReminder.TMDBFetcher.Model;
+using ShowReminder.TVDBFetcher.Model.Authentication;
+using ShowReminder.Web.Manager;
 using ShowReminder.Web.Models;
 
 namespace ShowReminder.Web
@@ -20,6 +26,9 @@ namespace ShowReminder.Web
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddJsonFile("deploymentProperties.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("authentication.json")
+                .AddJsonFile("tmdbKey.json")
+                .AddJsonFile("dbConfig.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -29,8 +38,13 @@ namespace ShowReminder.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddMvc();
+            services.AddOptions();
+
+            services.Configure<AuthenticationParam>(Configuration.GetSection("authenticationParam"));
+
+            var tmdbSettings = new TMDBSettings();
+            Configuration.GetSection("tmdbSettings").Bind(tmdbSettings);
+            services.AddSingleton(tmdbSettings);
 
             var apiUrl = Configuration.GetValue("apiUrl", "");
             var rootPathPrefix = Configuration.GetValue("rootPathPrefix", "");
@@ -40,6 +54,16 @@ namespace ShowReminder.Web
                 ApiUrl = apiUrl,
                 RootPathPrefix = rootPathPrefix
             });
+
+            services.AddDbContext<DataContext>(
+                options => options.UseMySql(Configuration.GetSection("connectionString").Value));
+
+            services.AddSingleton<TVManager>();
+            services.AddTransient<ShowManager>();
+
+
+            // Add framework services.
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

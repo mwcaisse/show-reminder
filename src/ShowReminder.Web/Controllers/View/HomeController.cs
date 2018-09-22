@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ShowReminder.Web.Models;
 
-namespace ShowReminder.Web.Controllers
+namespace ShowReminder.Web.Controllers.View
 {
     public class HomeController : Controller
     {

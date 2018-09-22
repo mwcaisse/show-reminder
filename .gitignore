@@ -64,9 +64,6 @@ node_modules
 Backup/
 UpgradeLog.htm
 
-src/ShowReminder.Web/wwwroot/lib
-src/ShowReminder.Web/wwwroot/main.js
-src/ShowReminder.Web/wwwroot/main.js.map
 
 *.lock.json
 
