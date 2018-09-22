@@ -54,6 +54,22 @@ namespace ShowReminder.Web.Manager
                 .ToList();
         }
 
+        public void UpdateExpiredShows()
+        {
+            var lastUpdateDate = DateTime.Now - TimeSpan.FromMinutes(15);
+
+            var shows = _dataContext.Shows
+                .Include(x => x.NextEpisode)
+                .Include(x => x.LastEpisode)
+                .Where(s => (s.NextEpisode == null || s.NextEpisode.AirDate < DateTime.Now.Date) &&
+                             s.UpdateDate < lastUpdateDate);
+
+            foreach (var show in shows)
+            {
+                RefetchShow(show);
+            }
+        }
+
         protected void RefetchExpiredShows(IEnumerable<TrackedShow> shows)
         {
             foreach (TrackedShow show in shows)

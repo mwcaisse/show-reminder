@@ -14,6 +14,8 @@ using ShowReminder.TMDBFetcher.Model;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 using ShowReminder.Web.Manager;
 using ShowReminder.Web.Models;
+using ShowReminder.Web.Scheduler;
+using ShowReminder.Web.Scheduler.Jobs;
 
 namespace ShowReminder.Web
 {
@@ -64,10 +66,19 @@ namespace ShowReminder.Web
 
             // Add framework services.
             services.AddMvc();
+
+            //Add Jobs
+            services.AddTransient<UpdateExpiredShowsJob>();
+
+            services.AddSingleton<QuartzScheduler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory,
+            IApplicationLifetime lifetime,
+            IServiceProvider container)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -90,6 +101,10 @@ namespace ShowReminder.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var scheduler = container.GetService<QuartzScheduler>();
+            lifetime.ApplicationStarted.Register(scheduler.Start);
+            lifetime.ApplicationStopping.Register(scheduler.Stop);
         }
     }
 }
