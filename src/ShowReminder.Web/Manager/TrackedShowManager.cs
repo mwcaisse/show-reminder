@@ -62,7 +62,8 @@ namespace ShowReminder.Web.Manager
                 .Include(x => x.NextEpisode)
                 .Include(x => x.LastEpisode)
                 .Where(s => (s.NextEpisode == null || s.NextEpisode.AirDate < DateTime.Now.Date) &&
-                             s.UpdateDate < lastUpdateDate);
+                            s.UpdateDate < lastUpdateDate)
+                .ToList();
 
             foreach (var show in shows)
             {
