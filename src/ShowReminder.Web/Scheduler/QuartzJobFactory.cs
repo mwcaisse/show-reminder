@@ -20,7 +20,6 @@ namespace ShowReminder.Web.Scheduler
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-
             var scope = _container.CreateScope();
             var job = scope.ServiceProvider.GetService(bundle.JobDetail.JobType) as IJob;
             _jobScopes.Add(job, scope);

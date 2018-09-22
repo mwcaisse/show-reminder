@@ -4,10 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+
 using ShowReminder.Web.Manager;
 using ShowReminder.Web.ViewModel;
 using ShowReminder.Data;
 using ShowReminder.Data.Entity;
+using ShowReminder.Web.Scheduler;
+using ShowReminder.Web.Scheduler.Jobs;
 
 namespace ShowReminder.Web.Controllers.Api
 {
@@ -16,10 +19,14 @@ namespace ShowReminder.Web.Controllers.Api
     public class TrackedShowApiController : Controller
     {
         private readonly TrackedShowManager _trackedShowManager;
+        private readonly QuartzScheduler _quartzScheduler;
         
-        public TrackedShowApiController(ShowManager showManager, DataContext dataContext){
+        public TrackedShowApiController(ShowManager showManager, DataContext dataContext,
+            QuartzScheduler quartzScheduler)
+        {
           
             _trackedShowManager = new TrackedShowManager(dataContext, showManager);
+            this._quartzScheduler = quartzScheduler;
         }
 
         [HttpGet]
@@ -29,6 +36,19 @@ namespace ShowReminder.Web.Controllers.Api
             return new ListJsonResponse<TrackedShow>()
             {
                 Data = _trackedShowManager.GetAll(),
+                ErrorMessage = null
+            };
+        }
+
+        [HttpGet]
+        [Route("update")]
+        public JsonResponse<bool> UpdateAll()
+        {
+            this._quartzScheduler.RunJobNow(typeof(UpdateExpiredShowsJob));
+
+            return new JsonResponse<bool>()
+            {
+                Data = true,
                 ErrorMessage = null
             };
         }
