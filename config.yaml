@@ -1,0 +1,13 @@
+name: ShowReminder
+uuid: 30f3a2f1-aeca-4cef-b202-713caff486ca
+subProjects:
+    - name: ShowReminder.Web
+      type: web
+      packageManager: yarn
+      webpack: false
+      serviceName: showreminder-web
+    - name: ShowReminder.Database
+      type: database
+      scriptDirectory: VersionedScripts
+      versionPrefix: V
+      versionSeparator: _
