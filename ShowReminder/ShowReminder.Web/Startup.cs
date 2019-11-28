@@ -81,9 +81,6 @@ namespace ShowReminder.Web
             IApplicationLifetime lifetime,
             IServiceProvider container)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

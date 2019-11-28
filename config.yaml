@@ -4,7 +4,7 @@ subProjects:
     - name: ShowReminder.Web
       type: web
       packageManager: yarn
-      webpack: false
+      webpack: true
       serviceName: showreminder-web
     - name: ShowReminder.Database
       type: database
