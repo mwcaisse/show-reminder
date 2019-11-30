@@ -1,0 +1,7 @@
+{
+  "authenticationParam": {
+    "apikey": "[[tvdb_api_key]]",
+    "username": "[[tvdb_username]]",
+    "userkey": "[[tvsb_userkey]]"
+  }
+}
