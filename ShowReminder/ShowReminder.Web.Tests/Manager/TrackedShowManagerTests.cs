@@ -38,6 +38,14 @@ namespace ShowReminder.Web.Tests.Manager
                     FirstAiredDate = null,
                     AirDay = "Wednesday",
                     AirTime = "22:00"
+                },
+                new TrackedShow()
+                {
+                    Id = 3,
+                    Name = "Mr Robot",
+                    FirstAiredDate = null,
+                    AirDay = "Sunday",
+                    AirTime = "21:00"
                 }
             };
 
@@ -61,6 +69,15 @@ namespace ShowReminder.Web.Tests.Manager
                 Assert.Equal("Archer", showOne.Name);
                 Assert.Equal("Wednesday", showOne.AirDay);
             }
+
+            [Fact]
+            public void TestReturnsNullForInexistentShow()
+            {
+                Assert.Null(subject.Get(0));
+                Assert.Null(subject.Get(5));
+                Assert.Null(subject.Get(-100));
+            }
         }
+       
     }
 }
