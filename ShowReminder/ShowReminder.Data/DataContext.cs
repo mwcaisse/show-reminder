@@ -6,7 +6,7 @@ namespace ShowReminder.Data
 {
     public class DataContext : DbContext
     {
-        public DbSet<TrackedShow> Shows { get; set; }
+        public virtual DbSet<TrackedShow> Shows { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
