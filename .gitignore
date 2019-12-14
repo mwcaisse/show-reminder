@@ -41,6 +41,7 @@ data-source.xml
 authentication.json
 tmdbKey.json
 dbConfig.json
+settings.json
 
 # Misc stuff #
 ##############

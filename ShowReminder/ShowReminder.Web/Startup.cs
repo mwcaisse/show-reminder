@@ -13,6 +13,7 @@ using ShowReminder.TMDBFetcher.Manager;
 using ShowReminder.TMDBFetcher.Model;
 using ShowReminder.TVDBFetcher.Model.Authentication;
 using ShowReminder.Web.Manager;
+using ShowReminder.Web.Mapper;
 using ShowReminder.Web.Models;
 using ShowReminder.Web.Scheduler;
 using ShowReminder.Web.Scheduler.Jobs;
@@ -31,6 +32,7 @@ namespace ShowReminder.Web
                 .AddJsonFile("authentication.json")
                 .AddJsonFile("tmdbKey.json")
                 .AddJsonFile("dbConfig.json")
+                .AddJsonFile("settings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -56,6 +58,17 @@ namespace ShowReminder.Web
                 ApiUrl = apiUrl,
                 RootPathPrefix = rootPathPrefix
             });
+            
+            var applicationConfiguration = new ApplicationConfiguration()
+            {
+                SendGridApiKey = Configuration.GetValue<string>("sendGridApiKey"),
+                FromEmailAddress = Configuration.GetValue<string>("fromEmailAddress"),
+                FromEmailAddressName = Configuration.GetValue<string>("fromEmailAddressName"),
+                ToEmailAddress = Configuration.GetValue<string>("toEmailAddress"),
+                ToEmailAddressName = Configuration.GetValue<string>("toEmailAddressName")
+            };
+
+            services.AddSingleton(applicationConfiguration);
 
             services.AddDbContext<DataContext>(
                 options => options.UseMySql(Configuration.GetSection("connectionString").Value));
@@ -63,6 +76,7 @@ namespace ShowReminder.Web
             services.AddSingleton<TVManager>();
             services.AddTransient<ShowManager>();
             services.AddTransient<TrackedShowManager>();
+            services.AddSingleton<EmailManager>();
 
 
             // Add framework services.

@@ -54,6 +54,14 @@ namespace ShowReminder.Web.Manager
                 .ToList();
         }
 
+        public List<TrackedShow> GetShowsAiredAfter(DateTime after)
+        {
+            return _dataContext.Shows
+                .Include(x => x.LastEpisode)
+                .Where(s => s.LastEpisode.AirDate >= after)
+                .ToList();
+        }
+
         public void UpdateExpiredShows()
         {
             var lastUpdateDate = DateTime.Now - TimeSpan.FromMinutes(15);

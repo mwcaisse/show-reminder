@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Text;
 using Quartz;
 using Quartz.Impl;
@@ -46,6 +47,20 @@ namespace ShowReminder.Web.Scheduler
                 .Build();
 
             _scheduler.ScheduleJob(updateExpiredShowsJob, updatedExpiredShowsTrigger).Wait();
+
+            var emailRecentlyAiredShowsJob = JobBuilder.Create<SendEmailRecentlyAiredShowsJob>()
+                .WithIdentity("send_email_recently_aired_shows")
+                .Build();
+
+            var emailRecentlyAriedShowsTrigger = TriggerBuilder.Create()
+                .WithIdentity("send_email_recently_aired_shows_trigger")
+                .StartNow()
+                .WithCronSchedule("0 0 5 * * ?") // everyday at 5 am
+                //.WithSimpleSchedule(x => x.WithIntervalInMinutes(2).RepeatForever())
+                .Build();
+
+            _scheduler.ScheduleJob(emailRecentlyAiredShowsJob, emailRecentlyAriedShowsTrigger).Wait();
+
         }
 
         public void Stop()
