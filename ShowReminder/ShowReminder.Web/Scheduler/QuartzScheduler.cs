@@ -56,7 +56,6 @@ namespace ShowReminder.Web.Scheduler
                 .WithIdentity("send_email_recently_aired_shows_trigger")
                 .StartNow()
                 .WithCronSchedule("0 0 5 * * ?") // everyday at 5 am
-                //.WithSimpleSchedule(x => x.WithIntervalInMinutes(2).RepeatForever())
                 .Build();
 
             _scheduler.ScheduleJob(emailRecentlyAiredShowsJob, emailRecentlyAriedShowsTrigger).Wait();

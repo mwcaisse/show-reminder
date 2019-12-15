@@ -84,6 +84,7 @@ namespace ShowReminder.Web
 
             //Add Jobs
             services.AddTransient<UpdateExpiredShowsJob>();
+            services.AddTransient<SendEmailRecentlyAiredShowsJob>();
 
             services.AddSingleton<QuartzScheduler>();
         }

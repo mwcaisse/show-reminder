@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Quartz;
+using ShowReminder.Data.Entity;
 using ShowReminder.Web.Manager;
 using ShowReminder.Web.Mapper;
 
@@ -22,21 +25,37 @@ namespace ShowReminder.Web.Scheduler.Jobs
         {
 
             var shows = _trackedShowManager.GetShowsAiredAfter(DateTime.Now.AddDays(-2));
-
-            var body = new StringBuilder();
-
-            foreach (var show in shows)
+            if (shows.Any())
             {
-                body.Append("<p>New Episode for ").Append(show.Name).Append("</p>");
-                body.Append("<p>Episode Name:").Append(show.LastEpisode.Name).Append("</p>");
-                body.Append("<p>Episode Number: S").Append(show.LastEpisode.SeasonNumber).Append("E")
-                    .Append(show.LastEpisode.EpisodeNumber).Append("</p>");
-                body.Append("<p>Episode Air Date:").Append(show.LastEpisode.AirDate).Append("</p>");
-                body.Append("<br />");
-            }
 
-            await _emailManager.SendEmail("New Shows!", body.ToString());
-          
+                var body = new StringBuilder();
+                body.Append("<h1> New Shows! </p>");
+
+                foreach (var show in shows)
+                {
+                    body.Append($"<p>New Episode for {show.Name}</p>");
+                    body.Append($"<p>Episode Name: {show.LastEpisode.Name}</p>");
+                    body.Append(
+                        $"<p>Episode Number: {show.LastEpisode.SeasonNumber:D2}E{show.LastEpisode.EpisodeNumber:D2}</p>");
+
+                    if (show.LastEpisode.AirDate.HasValue)
+                    {
+                        body.Append($"<p>Episode Air Date: {show.LastEpisode.AirDate.Value.Date}</p>");
+                    }
+                    body.Append($"<p><a href=\"{ConstructTorrentSearchUrl(show)}\">Link To Download (rarbg)</a></p>");
+                    body.Append("<br />");
+                }
+                await _emailManager.SendEmail("New Shows!", body.ToString());
+            }
+        }
+
+        public static string ConstructTorrentSearchUrl(TrackedShow show)
+        {
+            return
+                "https://rarbg.to/torrents.php?category=18;41;49" +
+                $"&search={show.Name.Replace(" ", "+")}+1080p" +
+                $"+s{show.LastEpisode.SeasonNumber:D2}e{show.LastEpisode.EpisodeNumber:D2}&order=seeders&by=DESC";
+
         }
         
         
