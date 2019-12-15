@@ -45,3 +45,8 @@ Vue.filter("round", function (value, places) {
     return Util.round(value, places);
 
 });
+
+Vue.filter("showLink", function (show) {
+    let name = show.name.replace(" ", "+");
+    return "https://rarbg.to/torrents.php?category=18;41;49&search=" + name + "+1080p&order=seeders&by=DESC"; 
+});

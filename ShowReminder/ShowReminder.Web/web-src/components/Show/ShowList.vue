@@ -11,6 +11,10 @@
                 <li class="box" v-for="show in shows">
                     <span class="subtitle">{{show.name}}</span>
                     <span class="is-pulled-right">
+                        <a v-bind:href="show | showLink" target="_blank">
+                            <app-icon icon="download" :action="true"></app-icon>
+                        </a>
+                        &nbsp;
                         <app-icon icon="trash" :action="true" v-on:click.native="deleteShow(show)"></app-icon>
                     </span>
                     <div class="columns">
@@ -70,7 +74,7 @@
             return {
                 shows: []
             }
-        },
+        },        
         methods: {
             fetchShows: function () {
                 ShowService.getAll().then(function (data) {
@@ -106,3 +110,8 @@
         }
     }
 </script>
+<style>
+    a {
+        color: inherit;
+    }
+</style>
