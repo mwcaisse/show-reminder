@@ -42,6 +42,7 @@ authentication.json
 tmdbKey.json
 dbConfig.json
 settings.json
+NuGet.config
 
 # Misc stuff #
 ##############

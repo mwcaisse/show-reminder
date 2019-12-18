@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <add key="owltin" value="https://mwcaisse.pkgs.visualstudio.com/_packaging/OwlTin/nuget/v3/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+  <owltin>
+     <add key="Username" value="[[nuget_username]]" />
+      <add key="ClearTextPassword" value="[[nuget_password]]" />
+    </owltin>
+  </packageSourceCredentials>
+</configuration>

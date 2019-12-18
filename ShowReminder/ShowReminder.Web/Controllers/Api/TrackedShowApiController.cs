@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
+using OwlTin.Common.Utils;
+using OwlTin.Common.ViewModels;
 using ShowReminder.Web.Manager;
 using ShowReminder.Web.ViewModel;
 using ShowReminder.Data;
@@ -27,14 +28,22 @@ namespace ShowReminder.Web.Controllers.Api
             _trackedShowManager = trackedShowmanager;
             this._quartzScheduler = quartzScheduler;
         }
-
+        
         [HttpGet]
         [Route("")]
-        public ListJsonResponse<TrackedShow>  GetAll()
+        public ListJsonResponse<TrackedShow>  GetAll(SortParam sort = null, Dictionary<string, string> filters = null)
         {
+            if (null == sort.ColumnName && !filters.Any())
+            {
+                return new ListJsonResponse<TrackedShow>()
+                {
+                    Data = _trackedShowManager.GetAllOrderedByAirDate(),
+                    ErrorMessage = null
+                };
+            }
             return new ListJsonResponse<TrackedShow>()
             {
-                Data = _trackedShowManager.GetAll(),
+                Data = _trackedShowManager.GetAll(sort, filters.ConvertToFilterParams()),
                 ErrorMessage = null
             };
         }

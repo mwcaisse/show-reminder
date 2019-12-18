@@ -49,6 +49,7 @@
     <PackageReference Include="Microsoft.Extensions.PlatformAbstractions" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
+    <PackageReference Include="OwlTin.Common" Version="1.1.0-CI-20191218-020914" />
     <PackageReference Include="Quartz" Version="3.0.6" />
     <PackageReference Include="Sendgrid" Version="9.12.0" />
     <PackageReference Include="System.Net.NameResolution" Version="4.3.0" />

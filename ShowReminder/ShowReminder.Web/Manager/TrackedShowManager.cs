@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using OwlTin.Common;
+using OwlTin.Common.ViewModels;
 using ShowReminder.Web.Models;
 using ShowReminder.Data;
 using ShowReminder.Data.Entity;
@@ -39,18 +41,30 @@ namespace ShowReminder.Web.Manager
         /// Fetches all of the tracked shows
         /// </summary>
         /// <returns></returns>
-        public List<TrackedShow> GetAll()
+        public List<TrackedShow> GetAllOrderedByAirDate()
         {
             var shows = _dataContext.Shows
                 .Include(x => x.NextEpisode)
                 .Include(x => x.LastEpisode)
                 .ToList();
 
-            RefetchExpiredShows(shows);
-
             return shows.OrderByDescending(x =>
                 null == x.LastEpisode ? DateTime.MaxValue : x.LastEpisode.AirDate)
                 .ThenBy(x => x.Name)
+                .ToList();
+        }
+        
+        /// <summary>
+        /// Fetches all of the tracked shows
+        /// </summary>
+        /// <returns></returns>
+        public List<TrackedShow> GetAll(SortParam sort, IEnumerable<FilterParam> filters)
+        {
+            return _dataContext.Shows
+                .Include(x => x.NextEpisode)
+                .Include(x => x.LastEpisode)
+                .Filter(filters)
+                .Sort(sort)
                 .ToList();
         }
 
