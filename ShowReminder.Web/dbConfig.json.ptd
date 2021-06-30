@@ -1,3 +1,0 @@
-{
-  "connectionString": "server=[[database_host]];userid=[[database_user]];pwd=[[database_password]];port=[[database_port]];database=[[database_schema]];sslmode=none;"
-}

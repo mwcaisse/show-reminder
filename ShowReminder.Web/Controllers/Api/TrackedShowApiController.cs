@@ -33,7 +33,7 @@ namespace ShowReminder.Web.Controllers.Api
         [Route("")]
         public ListJsonResponse<TrackedShow>  GetAll(SortParam sort = null, Dictionary<string, string> filters = null)
         {
-            if (null == sort.ColumnName && !filters.Any())
+            if (null == sort.SortBy && !filters.Any())
             {
                 return new ListJsonResponse<TrackedShow>()
                 {

@@ -1,7 +1,0 @@
-{
-  "sendGridApiKey": "[[send_grid_api_key]]",
-  "fromEmailAddress": "[[from_email_address]]",
-  "fromEmailAddressName": "[[from_email_address_name]]",
-  "toEmailAddress": "[[to_email_address]]",
-  "toEmailAddressName": "[[to_email_address_name]]"
-}

@@ -11,12 +11,12 @@ using Microsoft.Extensions.Logging;
 using ShowReminder.Data;
 using ShowReminder.TMDBFetcher.Manager;
 using ShowReminder.TMDBFetcher.Model;
-using ShowReminder.TVDBFetcher.Model.Authentication;
 using ShowReminder.Web.Manager;
 using ShowReminder.Web.Mapper;
 using ShowReminder.Web.Models;
 using ShowReminder.Web.Scheduler;
 using ShowReminder.Web.Scheduler.Jobs;
+using ShowReminder.Web.Utils;
 
 namespace ShowReminder.Web
 {
@@ -26,14 +26,9 @@ namespace ShowReminder.Web
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddJsonFile("deploymentProperties.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("authentication.json")
-                .AddJsonFile("tmdbKey.json")
-                .AddJsonFile("dbConfig.json")
-                .AddJsonFile("settings.json")
-                .AddEnvironmentVariables();
+                .AddJsonFile("application.json", true)
+                .AddJsonFile($"application.{env.EnvironmentName}.json", true)
+                .AddEnvironmentVariables("SHOW_REMINDER_API_");
             Configuration = builder.Build();
         }
 
@@ -44,28 +39,37 @@ namespace ShowReminder.Web
         {
             services.AddOptions();
 
-            services.Configure<AuthenticationParam>(Configuration.GetSection("authenticationParam"));
+            var databaseConfiguration = new DatabaseConfiguration()
+            {
+                Host = Configuration.GetValue<string>("database:host"),
+                User = Configuration.GetValue<string>("database:user"),
+                Password = Configuration.GetValue<string>("database:password"),
+                Port = Configuration.GetValue<string>("database:port"),
+                Schema = Configuration.GetValue<string>("database:schema"),
+                SslMode = Configuration.GetValue<string>("database:sslMode")
+            };
+            services.AddSingleton(databaseConfiguration);
 
-            var tmdbSettings = new TMDBSettings();
-            Configuration.GetSection("tmdbSettings").Bind(tmdbSettings);
+            var tmdbSettings = new TMDBSettings()
+            {
+                ApiKey = Configuration.GetValue<string>("tmdb:apiKey"),
+                BaseUrl = Configuration.GetValue<string>("tmdb:baseUrl")
+            };
             services.AddSingleton(tmdbSettings);
-
-            var apiUrl = Configuration.GetValue("apiUrl", "");
-            var rootPathPrefix = Configuration.GetValue("rootPathPrefix", "");
 
             services.AddSingleton<DeploymentProperties>(new DeploymentProperties()
             {
-                ApiUrl = apiUrl,
-                RootPathPrefix = rootPathPrefix
+                ApiUrl = Configuration.GetValue("deployment:apiUrl", ""),
+                RootPathPrefix = Configuration.GetValue("deployment:rootPathPrefix", "")
             });
             
             var applicationConfiguration = new ApplicationConfiguration()
             {
-                SendGridApiKey = Configuration.GetValue<string>("sendGridApiKey"),
-                FromEmailAddress = Configuration.GetValue<string>("fromEmailAddress"),
-                FromEmailAddressName = Configuration.GetValue<string>("fromEmailAddressName"),
-                ToEmailAddress = Configuration.GetValue<string>("toEmailAddress"),
-                ToEmailAddressName = Configuration.GetValue<string>("toEmailAddressName")
+                SendGridApiKey = Configuration.GetValue<string>("email:sendGridApiKey"),
+                FromEmailAddress = Configuration.GetValue<string>("email:fromEmailAddress"),
+                FromEmailAddressName = Configuration.GetValue<string>("email:fromEmailAddressName"),
+                ToEmailAddress = Configuration.GetValue<string>("email:toEmailAddress"),
+                ToEmailAddressName = Configuration.GetValue<string>("email:toEmailAddressName")
             };
 
             services.AddSingleton(applicationConfiguration);
@@ -107,13 +111,6 @@ namespace ShowReminder.Web
             }
 
             app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
 
             var scheduler = container.GetService<QuartzScheduler>();
             lifetime.ApplicationStarted.Register(scheduler.Start);

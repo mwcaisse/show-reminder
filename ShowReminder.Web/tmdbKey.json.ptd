@@ -1,7 +1,0 @@
-{
-  "tmdbSettings": {
-    "apiKey": "[[tmdb_api_key]]",
-    "baseUrl": "https://api.themoviedb.org/3/"
-  }
-
-}

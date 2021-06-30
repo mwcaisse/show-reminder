@@ -16,6 +16,7 @@ namespace ShowReminder.Web.Controllers.View
             _deploymentProperties = deploymentProperties;
         }
 
+        [Route("/")]
         public IActionResult Index()
         {
 
@@ -25,6 +26,7 @@ namespace ShowReminder.Web.Controllers.View
             return View();
         }
 
+        [Route("/error")]
         public IActionResult Error()
         {
             return View();
