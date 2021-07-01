@@ -41,66 +41,66 @@ spec:
                   name: show-reminder-api-secret
                   key: database-host
             - name: SHOW_REMINDER_API_DATABASE__USER
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: database-user
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: database-user
             - name: SHOW_REMINDER_API_DATABASE__PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: database-password
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: database-password
             - name: SHOW_REMINDER_API_DATABASE__PORT
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: database-port
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: database-port
             - name: SHOW_REMINDER_API_DATABASE__SCHEMA
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: database-schema
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: database-schema
             - name: SHOW_REMINDER_API_DATABASE__SSLMODE
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: database-ssl-mode                   
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: database-ssl-mode                   
                     
             - name: SHOW_REMINDER_API_EMAIL__APIKEY
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: email-api-key
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: email-api-key
                     
             - name: SHOW_REMINDER_API_EMAIL__FROMADDRESS
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: email-from-address
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: email-from-address
                     
             - name: SHOW_REMINDER_API_EMAIL__FROMNAME
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: email-from-name
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: email-from-name
                     
             - name: SHOW_REMINDER_API_EMAIL__TOADDRESS
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: email-to-address
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: email-to-address
                     
             - name: SHOW_REMINDER_API_EMAIL__TONAME
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: email-to-name
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: email-to-name
 
             - name: SHOW_REMINDER_API_TMDB__APIKEY
-                valueFrom:
-                  secretKeyRef:
-                    name: show-reminder-api-secret
-                    key: tmdb-apikey
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: tmdb-apikey
             
             - name: SHOW_REMINDER_API_TMDB__BASEURL
               value: "https://api.themoviedb.org/3/"
