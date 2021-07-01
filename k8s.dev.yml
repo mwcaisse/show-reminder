@@ -100,7 +100,7 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: show-reminder-api-secret
-                    key: tmdb-baseurl
+                    key: tmdb-apikey
             
             - name: SHOW_REMINDER_API_TMDB__BASEURL
               value: "https://api.themoviedb.org/3/"
