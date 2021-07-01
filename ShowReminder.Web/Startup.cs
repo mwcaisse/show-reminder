@@ -59,19 +59,13 @@ namespace ShowReminder.Web
             };
             services.AddSingleton(tmdbSettings);
 
-            services.AddSingleton<DeploymentProperties>(new DeploymentProperties()
-            {
-                ApiUrl = Configuration.GetValue("deployment:apiUrl", ""),
-                RootPathPrefix = Configuration.GetValue("deployment:rootPathPrefix", "")
-            });
-            
             var applicationConfiguration = new ApplicationConfiguration()
             {
                 SendGridApiKey = Configuration.GetValue<string>("email:sendGridApiKey"),
-                FromEmailAddress = Configuration.GetValue<string>("email:fromEmailAddress"),
-                FromEmailAddressName = Configuration.GetValue<string>("email:fromEmailAddressName"),
-                ToEmailAddress = Configuration.GetValue<string>("email:toEmailAddress"),
-                ToEmailAddressName = Configuration.GetValue<string>("email:toEmailAddressName")
+                FromEmailAddress = Configuration.GetValue<string>("email:fromAddress"),
+                FromEmailAddressName = Configuration.GetValue<string>("email:fromName"),
+                ToEmailAddress = Configuration.GetValue<string>("email:toAddress"),
+                ToEmailAddressName = Configuration.GetValue<string>("email:toName")
             };
 
             services.AddSingleton(applicationConfiguration);

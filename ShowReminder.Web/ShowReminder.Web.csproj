@@ -41,10 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="web-src\services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ShowReminder.Common\ShowReminder.Common.csproj" />
     <ProjectReference Include="..\ShowReminder.Data\ShowReminder.Data.csproj" />
     <ProjectReference Include="..\ShowReminder.TMDBFetcher\ShowReminder.TMDBFetcher.csproj" />

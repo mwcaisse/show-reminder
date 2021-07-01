@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: show-reminder-api
+  namespace: dev
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: show-reminder-api
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: show-reminder-api
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: show-reminder-api
+  template:
+    metadata:
+      labels:
+        app: show-reminder-api
+    spec:
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: show-reminder-api
+          image: registry.gitlab.com/mwcaisse/application-images/show-reminder-api:[[image_tag]]
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SHOW_REMINDER_API_DATABASE__HOST
+              valueFrom:
+                secretKeyRef:
+                  name: show-reminder-api-secret
+                  key: database-host
+            - name: SHOW_REMINDER_API_DATABASE__USER
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: database-user
+            - name: SHOW_REMINDER_API_DATABASE__PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: database-password
+            - name: SHOW_REMINDER_API_DATABASE__PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: database-port
+            - name: SHOW_REMINDER_API_DATABASE__SCHEMA
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: database-schema
+            - name: SHOW_REMINDER_API_DATABASE__SSLMODE
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: database-ssl-mode                   
+                    
+            - name: SHOW_REMINDER_API_EMAIL__APIKEY
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: email-api-key
+                    
+            - name: SHOW_REMINDER_API_EMAIL__FROMADDRESS
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: email-from-address
+                    
+            - name: SHOW_REMINDER_API_EMAIL__FROMNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: email-from-name
+                    
+            - name: SHOW_REMINDER_API_EMAIL__TOADDRESS
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: email-to-address
+                    
+            - name: SHOW_REMINDER_API_EMAIL__TONAME
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: email-to-name
+
+            - name: SHOW_REMINDER_API_TMDB__APIKEY
+                valueFrom:
+                  secretKeyRef:
+                    name: show-reminder-api-secret
+                    key: tmdb-baseurl
+            
+            - name: SHOW_REMINDER_API_TMDB__BASEURL
+              value: "https://api.themoviedb.org/3/"
+
+      imagePullSecrets:
+        - name: docker-creds

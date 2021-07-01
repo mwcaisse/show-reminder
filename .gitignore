@@ -60,18 +60,15 @@ lint.xml
 .vs
 obj/
 *.user
-node_modules
+
 
 # VS Update FIles #
 ###################
 Backup/
 UpgradeLog.htm
-
-
 *.lock.json
 
-# Generated web assets
-wwwroot/
+
 
 
 
