@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using OwlTin.Common.Utils;
 using OwlTin.Common.ViewModels;
-using ShowReminder.Web.Manager;
-using ShowReminder.Web.ViewModel;
-using ShowReminder.Data;
 using ShowReminder.Data.Entity;
+using ShowReminder.Web.Manager;
 using ShowReminder.Web.Scheduler;
 using ShowReminder.Web.Scheduler.Jobs;
+using ShowReminder.Web.ViewModel;
 
-namespace ShowReminder.Web.Controllers.Api
+namespace ShowReminder.Web.Controllers
 {
     
     [Route("api/show/tracked")]

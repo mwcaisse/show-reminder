@@ -46,7 +46,7 @@ namespace ShowReminder.Data
 
             //add the info for creating show
             modelBuilder.Entity<TrackedShow>()
-                .ToTable("SHOW")
+                .ToTable("TV_SHOW")
                 .HasKey(s => s.Id);
 
             modelBuilder.Entity<TrackedShow>()

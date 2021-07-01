@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Pomelo.EntityFrameworkCore.MySql.Storage.Internal;
+using Serilog;
 using ShowReminder.Data;
 using ShowReminder.TMDBFetcher.Manager;
 using ShowReminder.TMDBFetcher.Model;
@@ -74,8 +76,14 @@ namespace ShowReminder.Web
 
             services.AddSingleton(applicationConfiguration);
 
-            services.AddDbContext<DataContext>(
-                options => options.UseMySql(Configuration.GetSection("connectionString").Value));
+            Log.Information("Migrating our database in startup yo.");
+            DatabaseHelper.MigrateDatabase(databaseConfiguration.ConnectionString);
+            
+            services.AddDbContext<DataContext>(options =>
+                options.UseMySql(
+                    databaseConfiguration.ConnectionString,
+                    ServerVersion.AutoDetect(databaseConfiguration.ConnectionString)
+                ));
 
             services.AddSingleton<TVManager>();
             services.AddTransient<ShowManager>();
@@ -100,17 +108,15 @@ namespace ShowReminder.Web
             IApplicationLifetime lifetime,
             IServiceProvider container)
         {
+            loggerFactory.AddSerilog();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseEndpoints(routes => { routes.MapControllers(); });
 
             var scheduler = container.GetService<QuartzScheduler>();
             lifetime.ApplicationStarted.Register(scheduler.Start);

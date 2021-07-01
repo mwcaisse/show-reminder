@@ -4,8 +4,7 @@ using ShowReminder.Web.Manager;
 using ShowReminder.Web.Models;
 using ShowReminder.Web.ViewModel;
 
-
-namespace ShowReminder.Web.Controllers.Api
+namespace ShowReminder.Web.Controllers
 {
 
     [Route("api/show")]
