@@ -11,7 +11,7 @@ namespace ShowReminder.Web
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
+                .MinimumLevel.Information()
                 .WriteTo.Console()
                 .Enrich.WithExceptionDetails()
                 .CreateLogger();
